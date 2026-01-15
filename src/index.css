@@ -45,3 +45,8 @@ body {
   background-size: 40px 40px;
 }
 
+.glass-panel {
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 60px rgba(3, 3, 10, 0.45);
+}
+
