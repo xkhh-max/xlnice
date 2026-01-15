@@ -1,21 +1,25 @@
-# XLNICE Software Portfolio
+# XLNICE 软件作品展示页
 
-A modern, high-performance software showcase homepage.
+这是一个别出心裁、打破常规的个人软件作品预览主页。
 
-## Features
-- 🚀 Built with Vite & React
-- 🎨 Styled with Tailwind CSS
-- ✨ Smooth animations with Framer Motion
-- 📱 Fully responsive design
-- 🌑 Immersive dark mode
+## 特色
+- 🚀 **极速构建**: 基于 Vite + React + TypeScript。
+- 🎨 **视觉冲击**: 沉浸式深色设计，实验性排版布局。
+- ✨ **动态交互**: 使用 Framer Motion 实现平滑的滚动与悬停动画。
+- 📱 **多端适配**: 完美适配屏幕宽度，提供流畅体验。
+- 🌐 **中文优先**: 默认使用中文作为主语言。
 
-## Project Structure
-- `src/App.tsx`: Main application entry and UI components.
-- `src/index.css`: Tailwind directives and custom global styles.
-- `tailwind.config.js`: Custom theme and color palette.
+## 包含项目
+- **Terminator**: 跨平台 AI 桌面自动化引擎。
+- **Zidonhua**: 高效自动化处理工具集。
+- **XLNice**: 当前个人作品展示空间。
+- **Astro Starter**: 全栈开发快速启动模版。
 
-## Getting Started
-1. Install dependencies: `npm install`
-2. Start dev server: `npm run dev`
-3. Build for production: `npm run build`
+## 本地运行
+1. 安装依赖: `npm install`
+2. 启动预览: `npm run dev`
+3. 生产打包: `npm run build`
+
+---
+© 2026 XLNICE SPACE
 
