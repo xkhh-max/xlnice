@@ -16,13 +16,16 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: #0a0a0a;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #262626;
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #404040;
 }
@@ -36,12 +39,19 @@ body {
 }
 
 @keyframes gradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .grid-bg {
-  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
   background-size: 40px 40px;
 }
 
@@ -49,4 +59,3 @@ body {
   border-radius: 1.5rem;
   box-shadow: 0 25px 60px rgba(3, 3, 10, 0.45);
 }
-
