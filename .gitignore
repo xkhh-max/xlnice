@@ -7,10 +7,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
 *.local
+
+# Temporary files
+temp_page.html
+changed_files.txt
+*.png
+*.jpg
+!.public/*.png
+!.public/*.jpg
+
+# Separate project folder
+neuroforge_ai/
 
 # Editor directories and files
 .vscode/*
