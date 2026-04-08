@@ -88,7 +88,13 @@ function App() {
   };
 
   const scrollToSection = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.querySelector(id);
+    if (element) {
+      const offset = 80; // 导航栏高度 + 额外间距
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
   };
 
@@ -263,7 +269,7 @@ function App() {
         </motion.div>
       </section>
 
-      <main className="space-y-32 pb-24">
+      <main className="space-y-16 pb-16">
 
         {/* About Section - Brand Statement */}
         <section id="about" className="max-w-5xl mx-auto px-6">
@@ -307,12 +313,12 @@ function App() {
         </section>
 
         {/* Target Customers - 适合谁 */}
-        <section id="target" className="max-w-6xl mx-auto px-6 py-24">
+        <section id="target" className="max-w-6xl mx-auto px-6 py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8"
           >
             <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">Who's It For</p>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight">适合谁</h2>
@@ -339,12 +345,12 @@ function App() {
         </section>
 
         {/* Services Overview */}
-        <section id="services" className="max-w-6xl mx-auto px-6">
+        <section id="services" className="max-w-6xl mx-auto px-6 py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8"
           >
             <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">What We Offer</p>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight">四大服务板块</h2>
@@ -388,12 +394,12 @@ function App() {
         {/* AI Tools Section */}
         <section id="ai-tools" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 to-transparent" />
-          <div className="max-w-6xl mx-auto px-6 py-24 space-y-16">
+          <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-12"
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6"
             >
               <div>
                 <span className="text-xs uppercase tracking-[0.2em] mb-4 block" style={{ color: AI_TOOLS.color }}>AI Tools</span>
@@ -432,7 +438,7 @@ function App() {
             </div>
 
             {/* CTA */}
-            <div className="flex justify-center pt-12">
+            <div className="flex justify-center pt-6">
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
@@ -447,12 +453,12 @@ function App() {
         {/* Data Acquisition Section */}
         <section id="data-acquisition" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 to-transparent" />
-          <div className="max-w-6xl mx-auto px-6 py-24 space-y-16">
+          <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-12"
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6"
             >
               <div>
                 <span className="text-xs uppercase tracking-[0.2em] mb-4 block" style={{ color: DATA_ACQUISITION.color }}>Data Acquisition</span>
@@ -465,9 +471,9 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="p-8 md:p-12 rounded-3xl border border-white/10 bg-gradient-to-br from-[#00c6ff]/10 to-transparent"
+              className="p-6 md:p-8 rounded-3xl border border-white/10 bg-gradient-to-br from-[#00c6ff]/10 to-transparent"
             >
-              <div className="flex flex-col lg:flex-row gap-12">
+              <div className="flex flex-col lg:flex-row gap-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="p-4 rounded-xl bg-[#00c6ff]/20 text-[#00c6ff]">
@@ -521,7 +527,7 @@ function App() {
             </div>
 
             {/* CTA */}
-            <div className="flex justify-center pt-12">
+            <div className="flex justify-center pt-6">
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
@@ -536,12 +542,12 @@ function App() {
         {/* Overseas Marketing Section */}
         <section id="overseas" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#ffa500]/5 to-transparent" />
-          <div className="max-w-6xl mx-auto px-6 py-24 space-y-16">
+          <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-12"
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6"
             >
               <div>
                 <span className="text-xs uppercase tracking-[0.2em] mb-4 block" style={{ color: OVERSEAS_MARKETING.color }}>Overseas Marketing</span>
@@ -592,7 +598,7 @@ function App() {
             </div>
 
             {/* CTA */}
-            <div className="flex justify-center pt-12">
+            <div className="flex justify-center pt-6">
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
@@ -607,12 +613,12 @@ function App() {
         {/* Digital Building Section */}
         <section id="digital" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#22c55e]/5 to-transparent" />
-          <div className="max-w-6xl mx-auto px-6 py-24 space-y-16">
+          <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="border-b border-white/10 pb-12"
+              className="border-b border-white/10 pb-6"
             >
               <span className="text-xs uppercase tracking-[0.2em] mb-4 block" style={{ color: DIGITAL_BUILDING.color }}>Digital Building</span>
               <h2 className="text-4xl md:text-5xl font-black tracking-tight">{DIGITAL_BUILDING.title}</h2>
@@ -627,9 +633,9 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="group p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-[#22c55e]/5 to-transparent hover:border-[#22c55e]/30 transition-all"
+                  className="group p-6 rounded-3xl border border-white/10 bg-gradient-to-br from-[#22c55e]/5 to-transparent hover:border-[#22c55e]/30 transition-all"
                 >
-                  <div className="p-5 rounded-2xl bg-[#22c55e]/10 text-[#22c55e] w-fit mb-8">
+                  <div className="p-4 rounded-2xl bg-[#22c55e]/10 text-[#22c55e] w-fit mb-4">
                     {renderIcon(item.icon, 32)}
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#22c55e]/80 transition-colors">
@@ -648,7 +654,7 @@ function App() {
             </div>
 
             {/* CTA */}
-            <div className="flex justify-center pt-12">
+            <div className="flex justify-center pt-6">
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
@@ -661,8 +667,8 @@ function App() {
         </section>
 
         {/* Stats Section */}
-        <section className="max-w-5xl mx-auto px-6">
-          <div className="py-16 md:py-20 rounded-3xl border border-white/10 bg-gradient-to-r from-[#00c6ff]/5 via-[#e6058e]/5 to-[#ffa500]/5 text-center">
+        <section className="max-w-5xl mx-auto px-6 py-8">
+          <div className="py-10 rounded-3xl border border-white/10 bg-gradient-to-r from-[#00c6ff]/5 via-[#e6058e]/5 to-[#ffa500]/5 text-center">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
               {STATS.map((stat, idx) => (
                 <motion.div
@@ -681,26 +687,26 @@ function App() {
         </section>
 
         {/* Contact Section - 联系方式 */}
-        <section id="contact" className="relative py-32">
+        <section id="contact" className="relative py-16">
           <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 via-[#00c6ff]/5 to-[#ffa500]/5" />
           <div className="max-w-5xl mx-auto px-6 relative">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-8"
             >
               <h2 className="text-4xl md:text-5xl font-black tracking-tight">{CONTACT_INFO.title}</h2>
               <p className="text-white/40 mt-4">{CONTACT_INFO.subtitle}</p>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
               {/* 微信公众号 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
               >
                 <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-white/5">
                   <img src={CONTACT_INFO.wechat.official} alt="微信公众号" className="w-full h-full object-contain" />
@@ -797,9 +803,9 @@ function App() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-black/80 pt-20 pb-12">
+      <footer className="border-t border-white/5 bg-black/80 pt-12 pb-8">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-8 mb-8">
             <div className="lg:col-span-5 space-y-6">
               <h3 className="text-2xl font-bold text-white">
                 {BRAND.name} <span className="text-white/30">/</span> {BRAND.subtitle}
