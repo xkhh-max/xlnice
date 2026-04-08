@@ -28,6 +28,11 @@ public/qrcode/*.jpg
 *.png
 *.jpg
 
+# But track qrcode images in docs
+!docs/qrcode/
+!docs/qrcode/*.jpg
+!docs/qrcode/*.png
+
 # Separate project folder
 neuroforge_ai/
 
