@@ -22,6 +22,8 @@ changed_files.txt
 *.jpg
 !.public/*.png
 !.public/*.jpg
+!.public/qrcode/*.png
+!.public/qrcode/*.jpg
 
 # Separate project folder
 neuroforge_ai/

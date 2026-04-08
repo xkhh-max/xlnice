@@ -21,7 +21,12 @@ import {
   ArrowUp,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  Factory,
+  Rocket,
+  ShoppingBag,
+  Briefcase,
+  MessageCircle
 } from 'lucide-react';
 import {
   BRAND,
@@ -33,7 +38,11 @@ import {
   OVERSEAS_MARKETING,
   DIGITAL_BUILDING,
   SOCIAL_LINKS,
-  ALL_SERVICES
+  ALL_SERVICES,
+  HERO_CONFIG,
+  TARGET_CUSTOMERS,
+  PLATFORM_SERVICES,
+  CONTACT_INFO
 } from './data';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -54,6 +63,11 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Users,
   TrendingUp,
   Settings,
+  Factory,
+  Rocket,
+  ShoppingBag,
+  Briefcase,
+  MessageCircle
 };
 
 function App() {
@@ -154,12 +168,12 @@ function App() {
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-transparent to-transparent" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#e6058e]/5 rounded-full blur-[150px] -z-10" />
-        
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="max-w-4xl space-y-6"
+          className="max-w-4xl space-y-8"
         >
           <motion.p
             initial={{ opacity: 0 }}
@@ -177,12 +191,7 @@ function App() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="flex flex-wrap justify-center gap-4 md:gap-8"
           >
-            {[
-              { text: '国内', color: '#00c6ff' },
-              { text: '出海', color: '#e6058e' },
-              { text: '全球', color: '#ffa500' },
-              { text: '效率', color: '#22c55e' }
-            ].map((item, idx) => (
+            {HERO_CONFIG.keywords.map((item, idx) => (
               <motion.span
                 key={item.text}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -196,20 +205,30 @@ function App() {
             ))}
           </motion.div>
 
-          {/* 小字介绍 */}
+          {/* 主标语 */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="text-2xl md:text-4xl font-bold text-white/90 tracking-tight"
+          >
+            {HERO_CONFIG.headline}
+          </motion.h1>
+
+          {/* 场景化引导语 */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-base md:text-lg text-white/40 max-w-xl mx-auto leading-relaxed pt-4"
+            className="text-base md:text-lg text-white/40 max-w-xl mx-auto leading-relaxed"
           >
-            从 <span className="text-white/60">AI 效率工具</span>、<span className="text-white/60">全球数据获客</span> 到 <span className="text-white/60">海外流量获取</span>，一站式助力老板们把商品卖向全球。
+            {HERO_CONFIG.tagline}
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
             className="flex flex-wrap justify-center gap-4 pt-4"
           >
             <button
@@ -222,7 +241,7 @@ function App() {
               onClick={() => scrollToSection('#contact')}
               className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/5 transition-colors"
             >
-              了解更多
+              立即咨询
             </button>
           </motion.div>
         </motion.div>
@@ -258,16 +277,15 @@ function App() {
             <p className="text-xs uppercase tracking-[0.3em] text-white/30">Who We Are</p>
             
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-relaxed">
-              <span className="text-white/90">技术很简单，</span>
+              <span className="text-white/90">可靠、简单、直接，</span>
               <br />
-              <span className="text-white/50">复杂的是人</span>
+              <span className="text-white/50">视隐私为生命线</span>
             </h2>
 
             <p className="text-lg text-white/40 max-w-2xl mx-auto leading-relaxed">
               {BRAND.name}/{BRAND.subtitle} 致力于为想出海的老板提供一站式解决方案。
               <br />
-              坚持 <span className="text-white/60">可靠、简单、直接</span>，视{' '}
-              <span className="text-white/60">隐私</span> 为生命线。
+              <span className="text-white/60">技术很简单，复杂的是人。</span>
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 pt-6">
@@ -286,6 +304,38 @@ function App() {
               ))}
             </div>
           </motion.div>
+        </section>
+
+        {/* Target Customers - 适合谁 */}
+        <section id="target" className="max-w-6xl mx-auto px-6 py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">Who's It For</p>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight">适合谁</h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TARGET_CUSTOMERS.map((customer, idx) => (
+              <motion.div
+                key={customer.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 transition-all"
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-white/5">
+                  {renderIcon(customer.icon, 24)}
+                </div>
+                <h3 className="font-bold text-white mb-2">{customer.title}</h3>
+                <p className="text-sm text-white/40">{customer.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </section>
 
         {/* Services Overview */}
@@ -380,6 +430,17 @@ function App() {
                 </motion.article>
               ))}
             </div>
+
+            {/* CTA */}
+            <div className="flex justify-center pt-12">
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
+              >
+                <MessageCircle size={16} />
+                立即咨询
+              </button>
+            </div>
           </div>
         </section>
 
@@ -458,6 +519,17 @@ function App() {
                 </motion.div>
               ))}
             </div>
+
+            {/* CTA */}
+            <div className="flex justify-center pt-12">
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
+              >
+                <MessageCircle size={16} />
+                立即咨询
+              </button>
+            </div>
           </div>
         </section>
 
@@ -482,29 +554,52 @@ function App() {
               </div>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              {OVERSEAS_MARKETING.items.map((item, idx) => (
-                <motion.article
-                  key={item.id}
+            {/* 三大平台开户服务 */}
+            <div className="grid md:grid-cols-3 gap-6">
+              {PLATFORM_SERVICES.map((platform, idx) => (
+                <motion.div
+                  key={platform.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.08 }}
-                  className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-[#ffa500]/20 transition-all"
+                  transition={{ delay: idx * 0.1 }}
+                  className="p-8 rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all"
+                  style={{ borderColor: `${platform.color}30` }}
                 >
-                  <div className="flex items-start gap-5">
-                    <div className="p-4 rounded-xl bg-[#ffa500]/10 text-[#ffa500]">
-                      {renderIcon(item.icon, 28)}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: `${platform.color}20`, color: platform.color }}
+                    >
+                      {renderIcon(platform.icon, 24)}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#ffa500]/80 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-white/50 leading-relaxed">{item.description}</p>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">{platform.title}</h3>
+                      <p className="text-xs text-white/40">{platform.subtitle}</p>
                     </div>
                   </div>
-                </motion.article>
+                  <ul className="space-y-2 mb-6">
+                    {platform.highlights.map((h) => (
+                      <li key={h} className="flex items-center gap-2 text-sm text-white/50">
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: platform.color }} />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-white/30 italic">{platform.scenario}</p>
+                </motion.div>
               ))}
+            </div>
+
+            {/* CTA */}
+            <div className="flex justify-center pt-12">
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
+              >
+                <MessageCircle size={16} />
+                立即咨询
+              </button>
             </div>
           </div>
         </section>
@@ -551,6 +646,17 @@ function App() {
                 </motion.article>
               ))}
             </div>
+
+            {/* CTA */}
+            <div className="flex justify-center pt-12">
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/10 transition-colors flex items-center gap-2"
+              >
+                <MessageCircle size={16} />
+                立即咨询
+              </button>
+            </div>
           </div>
         </section>
 
@@ -574,6 +680,103 @@ function App() {
           </div>
         </section>
 
+        {/* Contact Section - 联系方式 */}
+        <section id="contact" className="relative py-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 via-[#00c6ff]/5 to-[#ffa500]/5" />
+          <div className="max-w-5xl mx-auto px-6 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">{CONTACT_INFO.title}</h2>
+              <p className="text-white/40 mt-4">{CONTACT_INFO.subtitle}</p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {/* 微信公众号 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+              >
+                <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-white/5">
+                  <img src={CONTACT_INFO.wechat.official} alt="微信公众号" className="w-full h-full object-contain" />
+                </div>
+                <h3 className="font-bold text-white mb-2">微信公众号</h3>
+                <p className="text-sm text-white/40">扫码关注</p>
+              </motion.div>
+
+              {/* Telegram */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+              >
+                <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-white/5">
+                  <img src={CONTACT_INFO.wechat.personal} alt="微信个人号" className="w-full h-full object-contain" />
+                </div>
+                <h3 className="font-bold text-white mb-2">微信个人号</h3>
+                <p className="text-sm text-white/40">扫码添加</p>
+                <p className="text-xs text-[#00c6ff] mt-2">{CONTACT_INFO.wechat.id}</p>
+              </motion.div>
+
+              {/* 电话 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+              >
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-[#00c6ff]/10 flex items-center justify-center">
+                  <Phone size={32} className="text-[#00c6ff]" />
+                </div>
+                <h3 className="font-bold text-white mb-2">电话咨询</h3>
+                <a href={`tel:${CONTACT_INFO.phone}`} className="text-2xl font-bold text-[#00c6ff] hover:underline">
+                  {CONTACT_INFO.phone}
+                </a>
+                <p className="text-xs text-white/30 mt-2">点击即可拨打</p>
+              </motion.div>
+            </div>
+
+            {/* 直接跳转链接 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-wrap justify-center gap-4"
+            >
+              <a
+                href={CONTACT_INFO.telegram.url}
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-3 rounded-full bg-[#00c6ff]/10 border border-[#00c6ff]/20 text-[#00c6ff] text-sm hover:bg-[#00c6ff]/20 transition-colors"
+              >
+                Telegram 频道
+              </a>
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                className="px-6 py-3 rounded-full bg-[#e6058e]/10 border border-[#e6058e]/20 text-[#e6058e] text-sm hover:bg-[#e6058e]/20 transition-colors"
+              >
+                发送邮件
+              </a>
+              <a
+                href={CONTACT_INFO.telegram.url}
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white/80 text-sm hover:bg-white/10 transition-colors"
+              >
+                微信: {CONTACT_INFO.wechat.id}
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
       </main>
 
       {/* Back to Top */}
@@ -594,7 +797,7 @@ function App() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer id="contact" className="border-t border-white/5 bg-black/80 pt-20 pb-12">
+      <footer className="border-t border-white/5 bg-black/80 pt-20 pb-12">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
             <div className="lg:col-span-5 space-y-6">
@@ -640,7 +843,6 @@ function App() {
 
           <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/20 uppercase tracking-[0.15em]">
             <p>© 2026 {BRAND.name} · All rights reserved.</p>
-            <p>Version 2.0 · 2026.04.07</p>
           </div>
         </div>
       </footer>

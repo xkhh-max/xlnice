@@ -32,7 +32,11 @@ import {
   Briefcase,
   Monitor,
   FileText,
-  Palette
+  Palette,
+  Factory,
+  Rocket,
+  ShoppingBag,
+  MessageCircle
 } from 'lucide-react';
 
 // ============================================================
@@ -49,6 +53,50 @@ export const BRAND = {
   tagline: '让技术简单，让出海不难',
   description: '我们致力于为想出海的老板提供一站式 AI + 营销解决方案。让技术回归简单，让出海触手可及。'
 } as const;
+
+// ============================================================
+// Hero 配置
+// ============================================================
+export const HERO_CONFIG = {
+  headline: '帮国内老板把商品卖到全球',
+  tagline: '不会发帖？不懂投放？我们帮您一条龙搞定出海营销',
+  keywords: [
+    { text: '国内', color: '#00c6ff' },
+    { text: '出海', color: '#e6058e' },
+    { text: '全球', color: '#ffa500' },
+    { text: '效率', color: '#22c55e' }
+  ]
+} as const;
+
+// ============================================================
+// 目标客户 - 适合谁
+// ============================================================
+export const TARGET_CUSTOMERS = [
+  {
+    id: 'factory',
+    title: '国内厂家',
+    desc: '有自己的产品，想快速卖到海外',
+    icon: 'Factory'
+  },
+  {
+    id: 'trader',
+    title: '传统企业老板',
+    desc: '有稳定业务，想拓展跨境渠道',
+    icon: 'Briefcase'
+  },
+  {
+    id: 'startup',
+    title: '创业者',
+    desc: '想低成本快速启动出海业务',
+    icon: 'Rocket'
+  },
+  {
+    id: 'ecommerce',
+    title: '跨境电商从业者',
+    desc: '已有店铺，想获取更多流量',
+    icon: 'ShoppingBag'
+  }
+] as const;
 
 // ============================================================
 // 品牌价值观
@@ -274,6 +322,54 @@ export const DATA_ACQUISITION: ServiceSection = {
 };
 
 // ============================================================
+// 出海营销服务 - 三大平台开户
+// ============================================================
+export const PLATFORM_SERVICES = [
+  {
+    id: 'tiktok',
+    title: 'TikTok',
+    subtitle: '短视频流量红利',
+    color: '#ff0050',
+    icon: 'Video',
+    highlights: [
+      '官方渠道企业户开户',
+      '快速下号，零风险',
+      '专业团队运营',
+      '内容创作指导'
+    ],
+    scenario: '适合想快速起量、打造爆款的品牌'
+  },
+  {
+    id: 'facebook',
+    title: 'Facebook',
+    subtitle: '精准社交营销',
+    color: '#1877f2',
+    icon: 'Users',
+    highlights: [
+      '企业户开户稳定',
+      '精准受众定向',
+      'Pixel 追踪转化',
+      'Instagram 联动'
+    ],
+    scenario: '适合面向 C 端消费者、品牌曝光'
+  },
+  {
+    id: 'google',
+    title: 'Google',
+    subtitle: '搜索意图最强',
+    color: '#4285f4',
+    icon: 'Search',
+    highlights: [
+      '搜索 + 展示 + YouTube',
+      '企业户快速开通',
+      'SEO 优化加持',
+      'Performance Max'
+    ],
+    scenario: '适合有明确购买意图的客户'
+  }
+] as const;
+
+// ============================================================
 // 出海营销服务
 // ============================================================
 export const OVERSEAS_MARKETING: ServiceSection = {
@@ -332,36 +428,6 @@ export const OVERSEAS_MARKETING: ServiceSection = {
         '购物广告',
         'Performance Max'
       ]
-    },
-    {
-      id: 'seo',
-      title: 'SEO 优化服务',
-      description: '站内外 SEO 优化，提升 Google 排名，获取免费精准流量。',
-      detailedDescription: '通过技术优化与内容策略，提升网站在 Google 等搜索引擎的自然排名，获取持续稳定的免费流量。',
-      icon: 'Search',
-      features: [
-        '技术 SEO 审计',
-        '关键词研究与布局',
-        '内容优化',
-        '外链建设',
-        '速度优化',
-        '移动端优化'
-      ]
-    },
-    {
-      id: 'ecommerce',
-      title: '独立站 + 电商建站',
-      description: 'Shopify / WooCommerce 建站，商品上传，支付接入，一站式出海。',
-      detailedDescription: '从域名、服务器到网站搭建、支付接入、物流配置，提供一站式跨境电商独立站解决方案。',
-      icon: 'ShoppingCart',
-      features: [
-        'Shopify 建站',
-        'WooCommerce 建站',
-        '商品上架与优化',
-        '支付接口集成',
-        '物流配送配置',
-        '网站速度优化'
-      ]
     }
   ]
 };
@@ -414,6 +480,25 @@ export const DIGITAL_BUILDING: ServiceSection = {
 };
 
 // ============================================================
+// 联系方式
+// ============================================================
+export const CONTACT_INFO = {
+  title: '立即开始',
+  subtitle: '先聊聊再说，期待与您合作',
+  wechat: {
+    official: '/qrcode/wechat-official.jpg',
+    personal: '/qrcode/wechat-personal.jpg',
+    id: 'Jianbangzz'
+  },
+  phone: '18500207859',
+  email: 'moomomiimi001@gmail.com',
+  telegram: {
+    url: 'https://t.me/caixukuntg',
+    name: 'caixukuntg'
+  }
+} as const;
+
+// ============================================================
 // 所有服务汇总（用于导航和页脚）
 // ============================================================
 export const ALL_SERVICES = [
@@ -443,11 +528,9 @@ export const ALL_SERVICES = [
     category: '出海服务',
     color: '#ffa500',
     services: [
-      { title: 'TikTok 代运营', id: 'overseas#tiktok' },
+      { title: 'TikTok 开户', id: 'overseas#tiktok' },
       { title: 'Facebook 开户', id: 'overseas#facebook' },
-      { title: 'Google 广告', id: 'overseas#google' },
-      { title: 'SEO 优化', id: 'overseas#seo' },
-      { title: '独立站建站', id: 'overseas#ecommerce' }
+      { title: 'Google 开户', id: 'overseas#google' }
     ]
   },
   {
@@ -523,5 +606,9 @@ export const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = 
   Briefcase,
   Monitor,
   FileText,
-  Palette
+  Palette,
+  Factory,
+  Rocket,
+  ShoppingBag,
+  MessageCircle
 };
