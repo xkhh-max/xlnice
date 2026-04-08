@@ -18,12 +18,15 @@ dist-ssr
 # Temporary files
 temp_page.html
 changed_files.txt
+
+# Qrcodes must be tracked
+!public/qrcode/
+public/qrcode/*.png
+public/qrcode/*.jpg
+
+# Ignore other images
 *.png
 *.jpg
-!.public/*.png
-!.public/*.jpg
-!.public/qrcode/*.png
-!.public/qrcode/*.jpg
 
 # Separate project folder
 neuroforge_ai/
