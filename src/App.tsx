@@ -1,3 +1,4 @@
+// TEST_UNIQUE_STRING_ABCDEF_12345
 import { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import {
@@ -26,7 +27,11 @@ import {
   Rocket,
   ShoppingBag,
   Briefcase,
-  MessageCircle
+  MessageCircle,
+  Bot,
+  UsersRound,
+  Wrench,
+  Layers
 } from 'lucide-react';
 import {
   BRAND,
@@ -34,6 +39,7 @@ import {
   STATS,
   NAV_LINKS,
   AI_TOOLS,
+  AI_EMPLOYEES,
   DATA_ACQUISITION,
   OVERSEAS_MARKETING,
   DIGITAL_BUILDING,
@@ -67,13 +73,18 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Rocket,
   ShoppingBag,
   Briefcase,
-  MessageCircle
+  MessageCircle,
+  Bot,
+  UsersRound,
+  Wrench,
+  Layers
 };
 
 function App() {
   const { scrollYProgress } = useScroll();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [expandedDepts, setExpandedDepts] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -450,6 +461,117 @@ function App() {
           </div>
         </section>
 
+        {/* AI 员工定制 Section */}
+        <section id="ai-employees" className="relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#8b5cf6]/5 to-transparent" />
+          <div className="max-w-6xl mx-auto px-6 py-12 space-y-8">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center border-b border-white/10 pb-6"
+            >
+              <span className="text-xs uppercase tracking-[0.2em] mb-4 block" style={{ color: '#8b5cf6' }}>AI Employees</span>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">AI员工定制</h2>
+              <p className="text-white/50 max-w-xl mx-auto">帮您打造一支懂业务、会干活的AI团队，就像雇佣了一批永不疲倦的员工</p>
+            </motion.div>
+
+            {/* One simple CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-6 rounded-2xl border border-[#8b5cf6]/20 bg-gradient-to-r from-[#8b5cf6]/10 to-transparent text-center"
+            >
+              <p className="text-white/70 text-sm">
+                已有 <span className="text-[#8b5cf6] font-bold">193个</span> AI员工可选，按需组合，打造您的专属团队
+              </p>
+            </motion.div>
+
+            {/* AI 员工列表 - Accordion 展开/收起 */}
+            <div className="space-y-3">
+              {AI_EMPLOYEES.filter(d => !['engineering', 'testing', 'project-management', 'spatial-computing', 'game-development', 'academic', 'finance', 'legal', 'supply-chain'].includes(d.id)).map((dept) => {
+                const isOpen = expandedDepts.has(dept.id);
+                const toggleDept = () => {
+                  setExpandedDepts(prev => {
+                    const next = new Set(prev);
+                    if (next.has(dept.id)) {
+                      next.delete(dept.id);
+                    } else {
+                      next.add(dept.id);
+                    }
+                    return next;
+                  });
+                };
+                return (
+                  <div key={dept.id} className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+                    {/* Header - Clickable Accordion */}
+                    <button
+                      onClick={toggleDept}
+                      className="w-full px-6 py-4 flex items-center gap-4 hover:bg-white/[0.03] transition-colors cursor-pointer text-left"
+                    >
+                      <span className="text-2xl">{dept.emoji}</span>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-white">{dept.name}</h3>
+                        <p className="text-white/40 text-sm">{dept.description}</p>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs">
+                        {dept.agents.length}
+                      </span>
+                      <motion.div
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronDown size={20} className="text-white/30" />
+                      </motion.div>
+                    </button>
+
+                    {/* Content with animation */}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-6 pb-4 space-y-2 border-t border-white/5">
+                            {dept.agents.map((agent) => (
+                              <div
+                                key={agent.name}
+                                className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-start gap-3"
+                              >
+                                <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: dept.color }} />
+                                <div>
+                                  <p className="text-white/90 font-medium">{agent.name}</p>
+                                  <p className="text-white/40 text-xs mt-1">{agent.scenario}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* CTA */}
+            <div className="flex justify-center pt-4">
+              <button
+                onClick={() => scrollToSection('#contact')}
+                className="px-8 py-4 rounded-full border border-[#8b5cf6]/20 text-white/80 text-sm tracking-[0.1em] hover:bg-[#8b5cf6]/10 transition-colors flex items-center gap-2"
+              >
+                <Bot size={16} />
+                告诉我您需要什么，帮你选配
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* Data Acquisition Section */}
         <section id="data-acquisition" className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 to-transparent" />
@@ -696,8 +818,8 @@ function App() {
               viewport={{ once: true }}
               className="text-center mb-8"
             >
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight">{CONTACT_INFO.title}</h2>
-              <p className="text-white/40 mt-4">{CONTACT_INFO.subtitle}</p>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">扫码联系我们</h2>
+              <p className="text-white/40 mt-4">说出您的需求，帮您选最合适的方案</p>
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -706,29 +828,29 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] text-center hover:border-[#e6058e]/30 transition-colors"
               >
-                <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-white/5">
+                <div className="w-40 h-40 mx-auto mb-4 rounded-2xl overflow-hidden bg-white/5 border-2 border-white/10">
                   <img src={CONTACT_INFO.wechat.official} alt="微信公众号" className="w-full h-full object-contain" />
                 </div>
-                <h3 className="font-bold text-white mb-2">微信公众号</h3>
-                <p className="text-sm text-white/40">扫码关注</p>
+                <h3 className="font-bold text-white mb-1">微信公众号</h3>
+                <p className="text-sm text-white/40">扫码关注，获取最新资讯</p>
               </motion.div>
 
-              {/* Telegram */}
+              {/* 微信个人号 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] text-center hover:border-[#00c6ff]/30 transition-colors"
               >
-                <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-white/5">
+                <div className="w-40 h-40 mx-auto mb-4 rounded-2xl overflow-hidden bg-white/5 border-2 border-white/10">
                   <img src={CONTACT_INFO.wechat.personal} alt="微信个人号" className="w-full h-full object-contain" />
                 </div>
-                <h3 className="font-bold text-white mb-2">微信个人号</h3>
-                <p className="text-sm text-white/40">扫码添加</p>
-                <p className="text-xs text-[#00c6ff] mt-2">{CONTACT_INFO.wechat.id}</p>
+                <h3 className="font-bold text-white mb-1">微信咨询</h3>
+                <p className="text-sm text-white/40">扫码添加，1对1服务</p>
+                <p className="text-xs text-[#00c6ff] mt-2 font-mono">{CONTACT_INFO.wechat.id}</p>
               </motion.div>
 
               {/* 电话 */}
@@ -737,48 +859,45 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] text-center hover:border-[#22c55e]/30 transition-colors"
               >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-[#00c6ff]/10 flex items-center justify-center">
-                  <Phone size={32} className="text-[#00c6ff]" />
+                <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-[#22c55e]/10 flex items-center justify-center">
+                  <Phone size={40} className="text-[#22c55e]" />
                 </div>
-                <h3 className="font-bold text-white mb-2">电话咨询</h3>
-                <a href={`tel:${CONTACT_INFO.phone}`} className="text-2xl font-bold text-[#00c6ff] hover:underline">
+                <h3 className="font-bold text-white mb-1">电话咨询</h3>
+                <a href={`tel:${CONTACT_INFO.phone}`} className="text-3xl font-bold text-[#22c55e] hover:underline block mt-2">
                   {CONTACT_INFO.phone}
                 </a>
-                <p className="text-xs text-white/30 mt-2">点击即可拨打</p>
+                <p className="text-xs text-white/30 mt-2">工作日 9:00-18:00</p>
               </motion.div>
             </div>
 
-            {/* 直接跳转链接 */}
+            {/* 快捷联系 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-wrap justify-center gap-4"
+              className="text-center space-y-4"
             >
-              <a
-                href={CONTACT_INFO.telegram.url}
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 py-3 rounded-full bg-[#00c6ff]/10 border border-[#00c6ff]/20 text-[#00c6ff] text-sm hover:bg-[#00c6ff]/20 transition-colors"
-              >
-                Telegram 频道
-              </a>
-              <a
-                href={`mailto:${CONTACT_INFO.email}`}
-                className="px-6 py-3 rounded-full bg-[#e6058e]/10 border border-[#e6058e]/20 text-[#e6058e] text-sm hover:bg-[#e6058e]/20 transition-colors"
-              >
-                发送邮件
-              </a>
-              <a
-                href={CONTACT_INFO.telegram.url}
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white/80 text-sm hover:bg-white/10 transition-colors"
-              >
-                微信: {CONTACT_INFO.wechat.id}
-              </a>
+              <p className="text-white/40 text-sm">其他联系方式</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a
+                  href={CONTACT_INFO.telegram.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-6 py-3 rounded-full bg-[#00c6ff]/10 border border-[#00c6ff]/20 text-[#00c6ff] text-sm hover:bg-[#00c6ff]/20 transition-colors flex items-center gap-2"
+                >
+                  <Send size={14} />
+                  Telegram
+                </a>
+                <a
+                  href={`mailto:${CONTACT_INFO.email}`}
+                  className="px-6 py-3 rounded-full bg-[#e6058e]/10 border border-[#e6058e]/20 text-[#e6058e] text-sm hover:bg-[#e6058e]/20 transition-colors flex items-center gap-2"
+                >
+                  <Mail size={14} />
+                  发送邮件
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>

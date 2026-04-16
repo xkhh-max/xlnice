@@ -7,8 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#030303',
-        foreground: '#ffffff',
         accent: {
           DEFAULT: '#3b82f6',
           purple: '#8b5cf6',
