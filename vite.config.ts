@@ -7,5 +7,15 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'docs',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'motion-vendor': ['framer-motion'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 500,
   },
 })
