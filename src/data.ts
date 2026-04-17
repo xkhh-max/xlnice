@@ -58,14 +58,17 @@ export const BRAND = {
 // Hero 配置
 // ============================================================
 export const HERO_CONFIG = {
-  headline: '帮国内老板把商品卖到全球',
-  tagline: '不会发帖？不懂投放？我们帮您一条龙搞定出海营销',
+  headline: '将我们的经验 技术 人脉 都变成您的',
   keywords: [
-    { text: '国内', color: '#00c6ff' },
-    { text: '出海', color: '#e6058e' },
-    { text: '全球', color: '#ffa500' },
-    { text: '效率', color: '#22c55e' }
-  ]
+    { text: '获客', color: '#00c6ff' },
+    { text: '赋能', color: '#e6058e' },
+    { text: '策划', color: '#ffa500' },
+    { text: '运营', color: '#22c55e' },
+    { text: '出海', color: '#8b5cf6' },
+    { text: 'AI', color: '#ec4899' }
+  ],
+  subKeywords: '自媒体获客 · 软件定制 · AI工具 · 直播带货 · 广告投放 · 品牌公关 · 官网搭建 · 私域运营',
+  tagline: '不会发帖？不懂投放？不会策划？不懂运营？不知道怎么出海？',
 } as const;
 
 // ============================================================

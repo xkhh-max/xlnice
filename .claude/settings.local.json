@@ -5,7 +5,24 @@
       "Bash(curl -s https://xlnice.top)",
       "Bash(curl -sI https://xlnice.top/58fdd5263d2300bd1090700aeb90df9a.txt)",
       "Bash(curl -sI https://xlnice.top/qrcode/wechat-personal.jpg)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(curl -sI http://localhost:5173)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(curl -s http://localhost:4173)",
+      "Bash(curl -sI http://localhost:4173/assets/index-rX5JibV5.js)",
+      "Bash(curl -sI http://localhost:4173/assets/index-BZKiD0HW.css)",
+      "Bash(curl -s http://localhost:4173/assets/index-rX5JibV5.js)",
+      "Bash(curl -s http://localhost:4173/assets/index-BZKiD0HW.css)",
+      "Bash(pkill -f \"vite preview\")",
+      "Bash(curl -s http://localhost:4173/)",
+      "Read(//e/融军智训/公司文化核心执行/融军智训官网/**)",
+      "mcp__web-search-prime__web_search_prime",
+      "Bash(git add *)"
+    ],
+    "additionalDirectories": [
+      "E:\\xlnice网站\\xlnice\\docs\\assets",
+      "e:\\xlnice网站\\xlnice\\docs\\assets"
     ]
   }
 }

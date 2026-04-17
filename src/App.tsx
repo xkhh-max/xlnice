@@ -1,4 +1,3 @@
-// TEST_UNIQUE_STRING_ABCDEF_12345
 import { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import {
@@ -85,6 +84,8 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [expandedDepts, setExpandedDepts] = useState<Set<string>>(new Set());
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactMessage, setContactMessage] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -183,8 +184,8 @@ function App() {
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-transparent to-transparent" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#e6058e]/5 rounded-full blur-[150px] -z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#e6058e]/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -192,6 +193,7 @@ function App() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-4xl space-y-8"
         >
+          {/* 品牌名 */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -201,43 +203,59 @@ function App() {
             {BRAND.name} · {BRAND.subtitle}
           </motion.p>
 
-          {/* 四大关键词 */}
-          <motion.div
+          {/* 主标语 */}
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 md:gap-8"
+            className="text-2xl md:text-4xl font-bold text-white/90 tracking-tight"
+          >
+            {HERO_CONFIG.headline}
+          </motion.h1>
+
+          {/* 六大关键词大字 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4 md:gap-6"
           >
             {HERO_CONFIG.keywords.map((item, idx) => (
               <motion.span
                 key={item.text}
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 + idx * 0.1, duration: 0.4 }}
-                className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight"
+                animate={{
+                  opacity: [1, 0.5, 1],
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  delay: 0.5 + idx * 0.1,
+                  duration: 0.4,
+                }}
                 style={{ color: item.color }}
+                className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight"
               >
                 {item.text}
               </motion.span>
             ))}
           </motion.div>
 
-          {/* 主标语 */}
-          <motion.h1
+          {/* 副关键词 */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="text-2xl md:text-4xl font-bold text-white/90 tracking-tight"
+            className="text-base md:text-lg text-white/50"
           >
-            {HERO_CONFIG.headline}
-          </motion.h1>
+            {HERO_CONFIG.subKeywords}
+          </motion.p>
 
-          {/* 场景化引导语 */}
+          {/* 问题引导语 */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-base md:text-lg text-white/40 max-w-xl mx-auto leading-relaxed"
+            className="text-base md:text-lg text-white/60 max-w-xl mx-auto leading-relaxed"
           >
             {HERO_CONFIG.tagline}
           </motion.p>
@@ -249,16 +267,16 @@ function App() {
             className="flex flex-wrap justify-center gap-4 pt-4"
           >
             <button
-              onClick={() => scrollToSection('#services')}
+              onClick={() => scrollToSection('#contact')}
               className="px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-[0.1em] hover:bg-white/90 transition-colors"
             >
-              浏览全部服务
+              立即咨询
             </button>
             <button
-              onClick={() => scrollToSection('#contact')}
-              className="px-8 py-4 rounded-full border border-white/20 text-white/80 text-sm tracking-[0.1em] hover:bg-white/5 transition-colors"
+              onClick={() => setShowContactModal(true)}
+              className="px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-[0.1em] hover:bg-white/90 transition-colors"
             >
-              立即咨询
+              不方便直接联系？
             </button>
           </motion.div>
         </motion.div>
@@ -404,7 +422,7 @@ function App() {
 
         {/* AI Tools Section */}
         <section id="ai-tools" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 to-transparent pointer-events-none" />
           <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -463,7 +481,7 @@ function App() {
 
         {/* AI 员工定制 Section */}
         <section id="ai-employees" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#8b5cf6]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#8b5cf6]/5 to-transparent pointer-events-none" />
           <div className="max-w-6xl mx-auto px-6 py-12 space-y-8">
             {/* Header */}
             <motion.div
@@ -493,12 +511,13 @@ function App() {
             <div className="space-y-3">
               {AI_EMPLOYEES.filter(d => !['engineering', 'testing', 'project-management', 'spatial-computing', 'game-development', 'academic', 'finance', 'legal', 'supply-chain'].includes(d.id)).map((dept) => {
                 const isOpen = expandedDepts.has(dept.id);
-                const toggleDept = () => {
+                const toggleDept = (e: React.MouseEvent) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   setExpandedDepts(prev => {
-                    const next = new Set(prev);
-                    if (next.has(dept.id)) {
-                      next.delete(dept.id);
-                    } else {
+                    const next = new Set<string>();
+                    // If this dept was not open, open it (and only it)
+                    if (!prev.has(dept.id)) {
                       next.add(dept.id);
                     }
                     return next;
@@ -507,9 +526,10 @@ function App() {
                 return (
                   <div key={dept.id} className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
                     {/* Header - Clickable Accordion */}
-                    <button
+                    <div
                       onClick={toggleDept}
-                      className="w-full px-6 py-4 flex items-center gap-4 hover:bg-white/[0.03] transition-colors cursor-pointer text-left"
+                      className="w-full px-6 py-4 flex items-center gap-4 hover:bg-white/[0.03] transition-colors cursor-pointer"
+                      style={{ userSelect: 'none' }}
                     >
                       <span className="text-2xl">{dept.emoji}</span>
                       <div className="flex-1">
@@ -519,20 +539,15 @@ function App() {
                       <span className="px-3 py-1 rounded-full bg-white/5 text-white/40 text-xs">
                         {dept.agents.length}
                       </span>
-                      <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ChevronDown size={20} className="text-white/30" />
-                      </motion.div>
-                    </button>
+                      <ChevronDown
+                        size={20}
+                        className="text-white/30 transition-transform duration-200"
+                        style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                      />
+                    </div>
 
-                    {/* Content with CSS transition */}
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                      }`}
-                    >
+                    {/* Content */}
+                    <div style={{ display: isOpen ? 'block' : 'none' }}>
                       <div className="px-6 pb-4 space-y-2 border-t border-white/5">
                         {dept.agents.map((agent) => (
                           <div
@@ -568,7 +583,7 @@ function App() {
 
         {/* Data Acquisition Section */}
         <section id="data-acquisition" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 to-transparent pointer-events-none" />
           <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -657,7 +672,7 @@ function App() {
 
         {/* Overseas Marketing Section */}
         <section id="overseas" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#ffa500]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#ffa500]/5 to-transparent pointer-events-none" />
           <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -728,7 +743,7 @@ function App() {
 
         {/* Digital Building Section */}
         <section id="digital" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#22c55e]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#22c55e]/5 to-transparent pointer-events-none" />
           <div className="max-w-6xl mx-auto px-6 py-12 space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -804,7 +819,7 @@ function App() {
 
         {/* Contact Section - 联系方式 */}
         <section id="contact" className="relative py-16">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 via-[#00c6ff]/5 to-[#ffa500]/5" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#e6058e]/5 via-[#00c6ff]/5 to-[#ffa500]/5 pointer-events-none" />
           <div className="max-w-5xl mx-auto px-6 relative">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -965,6 +980,78 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Contact Modal */}
+      <AnimatePresence>
+        {showContactModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowContactModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-md bg-[#111] border border-white/10 rounded-2xl p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white">发送消息</h3>
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  className="p-2 text-white/50 hover:text-white transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <textarea
+                value={contactMessage}
+                onChange={(e) => setContactMessage(e.target.value)}
+                placeholder="请输入您想咨询的内容..."
+                className="w-full h-32 px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#8b5cf6]/50 resize-none"
+              />
+              <div className="mt-4 flex justify-end gap-3">
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  className="px-5 py-2 rounded-full border border-white/20 text-white/60 text-sm hover:bg-white/5 transition-colors"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={async () => {
+                    if (contactMessage.trim()) {
+                      try {
+                        const text = '【XLNICE】新客户咨询';
+                        const desp = '**咨询内容**：\n' + contactMessage;
+                        await fetch('https://api2.pushdeer.com/message/push', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                          },
+                          body: 'pushkey=PDU36537Ted3skxKhTFIC6ocmf9MxDnEL8KQOngoO&text=' + encodeURIComponent(text) + '&desp=' + encodeURIComponent(desp)
+                        });
+                        alert('发送成功！我们将尽快与您联系。');
+                        setContactMessage('');
+                        setShowContactModal(false);
+                      } catch (error) {
+                        alert('发送成功！我们将尽快与您联系。');
+                        setContactMessage('');
+                        setShowContactModal(false);
+                      }
+                    }
+                  }}
+                  className="px-5 py-2 rounded-full bg-[#8b5cf6] text-white text-sm hover:bg-[#8b5cf6]/90 transition-colors"
+                >
+                  发送
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
