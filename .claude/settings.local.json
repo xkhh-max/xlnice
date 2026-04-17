@@ -18,7 +18,8 @@
       "Bash(curl -s http://localhost:4173/)",
       "Read(//e/融军智训/公司文化核心执行/融军智训官网/**)",
       "mcp__web-search-prime__web_search_prime",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ],
     "additionalDirectories": [
       "E:\\xlnice网站\\xlnice\\docs\\assets",
