@@ -527,33 +527,27 @@ function App() {
                       </motion.div>
                     </button>
 
-                    {/* Content with animation */}
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ maxHeight: 0, opacity: 0 }}
-                          animate={{ maxHeight: 500, opacity: 1 }}
-                          exit={{ maxHeight: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-4 space-y-2 border-t border-white/5">
-                            {dept.agents.map((agent) => (
-                              <div
-                                key={agent.name}
-                                className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-start gap-3"
-                              >
-                                <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: dept.color }} />
-                                <div>
-                                  <p className="text-white/90 font-medium">{agent.name}</p>
-                                  <p className="text-white/40 text-xs mt-1">{agent.scenario}</p>
-                                </div>
-                              </div>
-                            ))}
+                    {/* Content with CSS transition */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <div className="px-6 pb-4 space-y-2 border-t border-white/5">
+                        {dept.agents.map((agent) => (
+                          <div
+                            key={agent.name}
+                            className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-start gap-3"
+                          >
+                            <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: dept.color }} />
+                            <div>
+                              <p className="text-white/90 font-medium">{agent.name}</p>
+                              <p className="text-white/40 text-xs mt-1">{agent.scenario}</p>
+                            </div>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 );
               })}
