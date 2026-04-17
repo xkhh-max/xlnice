@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(curl -sI https://xlnice.top)"
+      "Bash(curl -sI https://xlnice.top)",
+      "Bash(curl -s https://xlnice.top)",
+      "Bash(curl -sI https://xlnice.top/58fdd5263d2300bd1090700aeb90df9a.txt)",
+      "Bash(curl -sI https://xlnice.top/qrcode/wechat-personal.jpg)",
+      "Bash(npx tsc *)"
     ]
   }
 }
