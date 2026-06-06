@@ -58,7 +58,7 @@ export const BRAND = {
 // Hero 配置
 // ============================================================
 export const HERO_CONFIG = {
-  headline: '将我们的经验 技术 人脉 都变成您的',
+  headline: '出海营销·AI工具·网站搭建·跨境电商·数据获客一站式服务',
   keywords: [
     { text: '获客', color: '#00c6ff' },
     { text: '赋能', color: '#e6058e' },
@@ -67,8 +67,68 @@ export const HERO_CONFIG = {
     { text: '出海', color: '#8b5cf6' },
     { text: 'AI', color: '#ec4899' }
   ],
-  subKeywords: '自媒体获客 · 软件定制 · AI工具 · 直播带货 · 广告投放 · 品牌公关 · 官网搭建 · 私域运营',
-  tagline: '不会发帖？不懂投放？不会策划？不懂运营？不知道怎么出海？',
+  subKeywords: '自媒体获客 · 软件定制 · AI工具 · 直播带货 · 广告投放 · 品牌公关 · 官网搭建 · 私域运营 · China Sourcing · Factory Direct',
+  tagline: '不会发帖？不懂投放？不会策划？不懂运营？不知道怎么出海？ Looking for quality China products? We help you source from Chinese factories.',
+} as const;
+
+// ============================================================
+// 我的项目展示 - 自研网站
+// ============================================================
+export const PROJECTS = [
+  {
+    id: 'bxz',
+    title: '入伍心理测评系统',
+    description: '基于MMPI标准的军检心理测试系统，覆盖人格测验、语言能力、数学推理、体能评估等维度，已服务数千名考生',
+    url: 'https://bxz.rongjun.fun',
+    badge: 'bxz.rongjun.fun',
+    icon: 'ShieldCheck',
+    gradient: 'from-[#e6058e]/10 to-[#00c6ff]/10'
+  },
+  {
+    id: 'rongjun',
+    title: '融军智训官网',
+    description: '融军智训品牌官网，提供入伍测评、军队文职备考、职业适应性检测等服务',
+    url: 'https://rongjun.fun',
+    badge: 'rongjun.fun',
+    icon: 'ShieldCheck',
+    gradient: 'from-[#ffa500]/10 to-[#e6058e]/10'
+  },
+  {
+    id: 'xl-internal',
+    title: '内部训练专用系统',
+    description: '内部人员高强度的训练平台，包含完整精选题库和进阶评估体系',
+    url: 'https://xl.xlnice.top',
+    badge: 'xl.xlnice.top',
+    icon: 'Server',
+    gradient: 'from-[#8b5cf6]/10 to-[#e6058e]/10'
+  },
+  {
+    id: 'social-media-platform',
+    title: '社媒运营服务平台',
+    description: '覆盖抖音·快手·小红书·视频号·微博·B站·公众号等全平台社媒互动服务，高效提升账号数据',
+    url: '',
+    badge: '',
+    icon: 'TrendingUp',
+    gradient: 'from-[#22c55e]/10 to-[#00c6ff]/10'
+  }
+] as const;
+
+// ============================================================
+// 小程序矩阵 & 软件产品
+// ============================================================
+export const SOFTWARE_PRODUCTS = {
+  acquisition: {
+    name: '采集获客软件',
+    users: '340+',
+    description: '全球POI数据采集工具，58个行业分类，200+国家覆盖，累计注册用户340+',
+    icon: 'Globe'
+  },
+  miniPrograms: {
+    name: '小程序矩阵',
+    users: '1000+',
+    description: '多款微信小程序覆盖入伍测评、心理检测、语言训练等场景，累计用户1000+',
+    icon: 'Smartphone'
+  }
 } as const;
 
 // ============================================================
@@ -139,10 +199,10 @@ export const TARGET_AUDIENCES = [
 // 核心数据
 // ============================================================
 export const STATS = [
-  { label: '平均节省时间', value: '3-5 小时/天', note: '高频对话自动完成' },
-  { label: '服务企业数', value: '500+', note: '持续增长中' },
-  { label: '覆盖国家地区', value: '200+', note: '全球数据覆盖' },
-  { label: '客户满意度', value: '98%', note: '好评为先' }
+  { label: '采集获客用户', value: '340+', note: '累计注册用户' },
+  { label: '小程序用户', value: '700+', note: '累计使用用户' },
+  { label: 'AI工具覆盖', value: '193+', note: '专业AI员工角色' },
+  { label: '服务企业数', value: '500+', note: '持续增长中' }
 ] as const;
 
 // ============================================================
@@ -272,6 +332,32 @@ export const AI_TOOLS: ServiceSection = {
         '小程序开发',
         '管理系统开发',
         '功能定制'
+      ]
+    },
+    {
+      id: 'workflow',
+      title: '企业工作流定制',
+      description: '梳理您的业务流程，用自动化工具替代重复劳动，降本增效。',
+      detailedDescription: '从需求调研到方案落地，帮您设计并实施企业工作流自动化方案。',
+      icon: 'Settings',
+      features: [
+        '业务流程梳理',
+        '自动化方案设计',
+        '跨系统集成',
+        '效率评估报告'
+      ]
+    },
+    {
+      id: 'auto-publish',
+      title: '自动化发布生成',
+      description: '内容自动生成、多平台一键发布，批量管理您的数字资产。',
+      detailedDescription: 'AI自动生成文案/图片/视频，定时发布到多个平台，省去重复操作。',
+      icon: 'Layers',
+      features: [
+        'AI内容生成',
+        '多平台一键发布',
+        '定时排期发布',
+        '效果数据追踪'
       ]
     }
   ]
@@ -652,6 +738,21 @@ export const DATA_ACQUISITION: ServiceSection = {
 // ============================================================
 // 出海营销服务 - 三大平台开户
 // ============================================================
+export const DOUYIN_SERVICES = {
+  id: 'douyin',
+  title: '抖音',
+  subtitle: '国内最大短视频流量池',
+  color: '#1e1e1e',
+  icon: 'Video',
+  highlights: [
+    '点赞评论互动',
+    '精准涨粉服务',
+    '直播间控评管理',
+    '热门推荐优化'
+  ],
+  scenario: '适合想在抖音快速起号、提升互动率的品牌和个人'
+} as const;
+
 export const PLATFORM_SERVICES = [
   {
     id: 'tiktok',
@@ -756,6 +857,50 @@ export const OVERSEAS_MARKETING: ServiceSection = {
         '购物广告',
         'Performance Max'
       ]
+    },
+    {
+      id: 'douyin',
+      title: '抖音运营推广',
+      description: '点赞、评论、涨粉、直播间控评，一站式抖音运营服务。',
+      detailedDescription: '从账号冷启动到直播运营，提供点赞评论、精准涨粉、直播间评论管理等全方位服务。',
+      icon: 'Video',
+      features: [
+        '短视频点赞评论',
+        '精准涨粉服务',
+        '直播间人气互动',
+        '评论内容管理',
+        '账号权重提升',
+        '热门推荐优化'
+      ]
+    },
+    {
+      id: 'seo',
+      title: '跨境电商SEO',
+      description: 'Google SEO优化 + 独立站 SEO，让海外客户主动找到您。',
+      detailedDescription: '技术SEO + 内容SEO双管齐下，提升网站在Google的搜索排名，获取自然流量。',
+      icon: 'Search',
+      features: [
+        'Google SEO优化',
+        '关键词策略',
+        '技术SEO审计',
+        '内容SEO策划',
+        '独立站SEO',
+        '流量数据分析'
+      ]
+    },
+    {
+      id: 'independent-site',
+      title: '海外独立站搭建',
+      description: 'Shopify/WordPress独立站搭建，从建站到运营一站式搞定。',
+      detailedDescription: '帮您搭建品牌独立站，集成支付、物流、营销工具，直接面向海外消费者。',
+      icon: 'ShoppingCart',
+      features: [
+        '独立站搭建',
+        '品牌设计',
+        '支付集成',
+        '物流对接',
+        '营销工具配置'
+      ]
     }
   ]
 };
@@ -808,6 +953,220 @@ export const DIGITAL_BUILDING: ServiceSection = {
 };
 
 // ============================================================
+// 前置咨询服务
+// ============================================================
+export const PRE_CONSULTING: ServiceSection = {
+  id: 'pre-consulting',
+  title: '前置咨询服务',
+  titleEn: 'Pre-Consulting',
+  description: '出海前的最后一道坎，我们帮您迈过去',
+  color: '#a855f7',
+  gradient: 'from-[#a855f7]/10 to-transparent',
+  borderColor: 'border-[#a855f7]/20',
+  highlightColor: 'text-[#a855f7]',
+  bgCard: 'bg-[#a855f7]/10',
+  ctaTitle: '咨询范围',
+  ctaDescription: '从0到1的全程指导 · 小白也能轻松上手',
+  items: [
+    {
+      id: 'network-setup',
+      title: '网络节点搭建',
+      description: '稳定可靠的网络节点搭建服务，让您无障碍访问海外资源。',
+      detailedDescription: '从服务器选购到节点配置，全程指导搭建。提供多种协议方案，确保稳定高速。',
+      icon: 'Globe',
+      features: [
+        'VPS服务器选购指导',
+        '节点协议配置',
+        '网络优化加速',
+        '多设备使用指南',
+        '故障排查支持'
+      ]
+    },
+    {
+      id: 'account-reg',
+      title: '海外账号注册',
+      description: 'Google / Facebook / TikTok / Amazon 等海外平台账号注册指导。',
+      detailedDescription: '从账号注册到养号，帮您解决海外平台开户难题，避开常见封号雷区。',
+      icon: 'Users',
+      features: [
+        '海外邮箱注册',
+        'Google账号注册',
+        'Facebook/TikTok开户',
+        'Amazon店铺注册',
+        '账号安全养号指南'
+      ]
+    },
+    {
+      id: 'consulting',
+      title: '出海前置咨询',
+      description: '不知道怎么做？先聊聊，帮您理清出海思路和路径。',
+      detailedDescription: '免费前置咨询，评估您的产品/服务是否适合出海，制定初步方案。',
+      icon: 'MessageCircle',
+      features: [
+        '出海可行性评估',
+        '目标市场分析',
+        '竞品调研',
+        '初步方案制定',
+        '成本预算规划'
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// 社媒运营服务 - 全平台互动数据服务
+// ============================================================
+export const SOCIAL_MEDIA_SERVICES: ServiceSection = {
+  id: 'social-media',
+  title: '社媒运营服务',
+  titleEn: 'Social Media Operations',
+  description: '覆盖全平台的社媒互动增长与数据服务',
+  color: '#22c55e',
+  gradient: 'from-[#22c55e]/10 to-transparent',
+  borderColor: 'border-[#22c55e]/20',
+  highlightColor: 'text-[#22c55e]',
+  bgCard: 'bg-[#22c55e]/10',
+  ctaTitle: '服务优势',
+  ctaDescription: '全平台覆盖 · 真人互动 · 数据稳定 · 售后保障',
+  items: [
+    {
+      id: 'douyin-full',
+      title: '抖音全系服务',
+      description: '粉丝增长、点赞评论、作品播放完播、话题热度、直播互动，一站式抖音运营数据服务。',
+      detailedDescription: '覆盖抖音短视频和直播两大场景，提供粉丝增长、智能点赞、手工点赞、作品评论、分享收藏、作品播放、完播率提升、话题播放、直播间人气等全方位服务。',
+      icon: 'TrendingUp',
+      features: [
+        '抖音粉丝增长',
+        '手工/智能点赞',
+        '作品评论互动',
+        '作品播放与完播',
+        '话题热度提升',
+        '直播间人气互动'
+      ]
+    },
+    {
+      id: 'kuaishou',
+      title: '快手全系服务',
+      description: '快手粉丝、点赞、评论、直播人气等全方位运营支持。',
+      detailedDescription: '覆盖快手短视频和直播双场景，支持快手专区与快手直播两大板块的互动数据增长。',
+      icon: 'Video',
+      features: [
+        '快手粉丝增长',
+        '作品点赞评论',
+        '直播人气互动',
+        '作品播放提升',
+        '账号权重优化'
+      ]
+    },
+    {
+      id: 'platform-wide',
+      title: '多平台覆盖',
+      description: '小红书·视频号·微博·B站·公众号·头条·懂车帝·腾讯系等全平台社媒服务。',
+      detailedDescription: '覆盖主流社交平台，包括小红书种草互动、视频号运营、微博粉丝互动、B站弹幕评论、公众号阅读互动、今日头条推荐、懂车帝互动、腾讯系产品等。',
+      icon: 'Smartphone',
+      features: [
+        '小红书点赞收藏',
+        '视频号粉丝互动',
+        '微博转评赞',
+        'B站弹幕评论',
+        '公众号阅读在看',
+        '今日头条/懂车帝'
+      ]
+    },
+    {
+      id: 'special-services',
+      title: '专项服务',
+      description: '评论举报下沉、自定义评论、真人点赞、投票助力、音乐类/影视类互动等。',
+      detailedDescription: '提供人工举报评论/作品（让评论下沉或作品限流）、真人手点赞（广告赞/图文赞/快速赞）、自定义评论（围绕评论/楼中楼/表情评论）、投票专区、音乐类及影视类互动等专项服务。',
+      icon: 'Settings',
+      features: [
+        '人工举报评论/作品',
+        '真人手点广告/图文赞',
+        '自定义评论互动',
+        '投票助力',
+        '音乐/影视互动',
+        '海外专区服务'
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// China Sourcing - 针对外国用户的中国供应链服务
+// ============================================================
+export const CHINA_SOURCING: ServiceSection = {
+  id: 'china-sourcing',
+  title: 'China Sourcing',
+  titleEn: '中国供应链对接',
+  description: 'Quality products from China — factories, wholesale, supply chain',
+  color: '#dc2626',
+  gradient: 'from-[#dc2626]/10 to-transparent',
+  borderColor: 'border-[#dc2626]/20',
+  highlightColor: 'text-[#dc2626]',
+  bgCard: 'bg-[#dc2626]/10',
+  ctaTitle: 'Why Us',
+  ctaDescription: 'Direct factory prices · Quality guaranteed · Full supply chain support',
+  items: [
+    {
+      id: 'product-sourcing',
+      title: 'China Product Sourcing',
+      description: 'Find quality products from Chinese manufacturers at factory-direct prices.',
+      detailedDescription: 'From electronics to clothing, home goods to industrial parts — we source any product from verified Chinese factories.',
+      icon: 'ShoppingBag',
+      features: [
+        'Product sourcing & matching',
+        'Factory price negotiation',
+        'Sample coordination',
+        'Minimum order quantity assistance',
+        'Supplier verification'
+      ]
+    },
+    {
+      id: 'factory-direct',
+      title: 'Factory Direct Connection',
+      description: 'Connect directly with Chinese factories — cut out the middleman.',
+      detailedDescription: 'We help you find and connect with reliable Chinese manufacturers for long-term business relationships.',
+      icon: 'Factory',
+      features: [
+        'Factory audit & verification',
+        'Direct manufacturer contact',
+        'Production capability assessment',
+        'Factory visit arrangement',
+        'Long-term partnership building'
+      ]
+    },
+    {
+      id: 'supply-chain',
+      title: 'Supply Chain Management',
+      description: 'End-to-end China supply chain solutions — from factory to your door.',
+      detailedDescription: 'Full-service supply chain management including sourcing, quality control, logistics, and customs clearance.',
+      icon: 'Globe',
+      features: [
+        'End-to-end supply chain',
+        'Quality control & inspection',
+        'Shipping & freight forwarding',
+        'Customs clearance assistance',
+        'Warehousing & distribution'
+      ]
+    },
+    {
+      id: 'trade-consulting',
+      title: 'China Trade Consulting',
+      description: 'Expert guidance on doing business with China — regulations, culture, logistics.',
+      detailedDescription: 'Navigate the complexities of China trade with expert consulting on regulations, business culture, and market entry.',
+      icon: 'MessageCircle',
+      features: [
+        'Import/export regulations',
+        'Business culture guidance',
+        'Market entry strategy',
+        'Legal & compliance support',
+        'Payment & risk management'
+      ]
+    }
+  ]
+};
+
+// ============================================================
 // 联系方式
 // ============================================================
 export const CONTACT_INFO = {
@@ -816,14 +1175,21 @@ export const CONTACT_INFO = {
   wechat: {
     official: '/qrcode/wechat-official.jpg',
     personal: '/qrcode/wechat-personal.jpg',
-    id: 'Jianbangzz'
+    personalNew: '/qrcode/wechat-personal-new.jpg',
+    id: 'Q_MxMF27',
+    note: '添加时备注来意，快速通过'
   },
-  phone: '18500207859',
-  email: 'moomomiimi001@gmail.com',
   telegram: {
     url: 'https://t.me/caixukuntg',
-    name: 'caixukuntg'
-  }
+    name: 'caixukuntg',
+    qr: '/qrcode/telegram-personal.png'
+  },
+  other: {
+    qr: '/qrcode/other-contact.jpg',
+    label: '更多渠道'
+  },
+  phone: '18500207859',
+  email: 'moomomiimi001@gmail.com'
 } as const;
 
 // ============================================================
@@ -875,7 +1241,38 @@ export const ALL_SERVICES = [
     color: '#22c55e',
     services: [
       { title: '网站制作', id: 'digital#website' },
-      { title: '小程序开发', id: 'digital#miniprogram' }
+      { title: '小程序开发', id: 'digital#miniprogram' },
+      { title: '海外独立站搭建', id: 'overseas#independent-site' },
+      { title: '跨境电商SEO', id: 'overseas#seo' }
+    ]
+  },
+  {
+    category: '社媒运营',
+    color: '#22c55e',
+    services: [
+      { title: '抖音全系服务', id: 'social-media#douyin-full' },
+      { title: '快手全系服务', id: 'social-media#kuaishou' },
+      { title: '多平台覆盖', id: 'social-media#platform-wide' },
+      { title: '专项服务', id: 'social-media#special-services' }
+    ]
+  },
+  {
+    category: '前置咨询',
+    color: '#a855f7',
+    services: [
+      { title: '网络节点搭建', id: 'pre-consulting#network-setup' },
+      { title: '海外账号注册', id: 'pre-consulting#account-reg' },
+      { title: '出海前置咨询', id: 'pre-consulting#consulting' }
+    ]
+  },
+  {
+    category: 'China Sourcing',
+    color: '#dc2626',
+    services: [
+      { title: 'Product Sourcing', id: 'china-sourcing#product-sourcing' },
+      { title: 'Factory Direct', id: 'china-sourcing#factory-direct' },
+      { title: 'Supply Chain Mgmt', id: 'china-sourcing#supply-chain' },
+      { title: 'Trade Consulting', id: 'china-sourcing#trade-consulting' }
     ]
   }
 ] as const;
@@ -884,12 +1281,12 @@ export const ALL_SERVICES = [
 // 导航链接
 // ============================================================
 export const NAV_LINKS = [
-  { href: '#about', label: '关于' },
+  { href: '#hero', label: '首页' },
+  { href: '#projects', label: '项目' },
+  { href: '#social-media', label: '社媒运营' },
   { href: '#ai-tools', label: 'AI工具' },
-  { href: '#ai-employees', label: 'AI员工' },
-  { href: '#data-acquisition', label: '数据获客' },
   { href: '#overseas', label: '出海服务' },
-  { href: '#digital', label: '数字化建设' },
+  { href: '#pre-consulting', label: '前置咨询' },
   { href: '#contact', label: '联系' }
 ] as const;
 

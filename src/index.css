@@ -4,6 +4,16 @@
 
 :root {
   color-scheme: dark;
+
+  /* ===== 品牌色系（统一管理，避免硬编码） ===== */
+  --color-brand-pink: #e6058e;
+  --color-brand-blue: #00c6ff;
+  --color-brand-orange: #ffa500;
+  --color-brand-green: #22c55e;
+  --color-brand-purple: #8b5cf6;
+  --color-brand-violet: #a855f7;
+  --color-bg-dark: #03030a;
+  --color-bg-card: rgba(255, 255, 255, 0.02);
 }
 
 body {
