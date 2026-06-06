@@ -1173,19 +1173,19 @@ export const CONTACT_INFO = {
   title: '立即开始',
   subtitle: '先聊聊再说，期待与您合作',
   wechat: {
-    official: '/qrcode/wechat-official.jpg',
-    personal: '/qrcode/wechat-personal.jpg',
-    personalNew: '/qrcode/wechat-personal-new.jpg',
+    official: '/qrcode/wechat-official.webp',
+    personal: '/qrcode/wechat-personal.webp',
+    personalNew: '/qrcode/wechat-personal-new.webp',
     id: 'Q_MxMF27',
     note: '添加时备注来意，快速通过'
   },
   telegram: {
     url: 'https://t.me/caixukuntg',
     name: 'caixukuntg',
-    qr: '/qrcode/telegram-personal.png'
+    qr: '/qrcode/telegram-personal.webp'
   },
   other: {
-    qr: '/qrcode/other-contact.jpg',
+    qr: '/qrcode/other-contact.webp',
     label: '更多渠道'
   },
   phone: '18500207859',
