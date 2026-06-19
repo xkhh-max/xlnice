@@ -36,7 +36,10 @@ import {
   Factory,
   Rocket,
   ShoppingBag,
-  MessageCircle
+  MessageCircle,
+  ChevronRight,
+  ChevronDown,
+  Image
 } from 'lucide-react';
 
 // ============================================================
@@ -1315,9 +1318,160 @@ export const SOCIAL_LINKS = [
 ] as const;
 
 // ============================================================
+// 共享家风格首屏 - 分类菜单树
+// ============================================================
+export type CategoryTreeItem = {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  items: { name: string; section: string }[];
+};
+
+export const SERVICE_CATEGORY_TREE: CategoryTreeItem[] = [
+  {
+    id: 'social-media',
+    name: '社媒运营',
+    icon: 'TrendingUp',
+    color: '#22c55e',
+    items: [
+      { name: '抖音全系服务', section: '#social-media' },
+      { name: '快手全系服务', section: '#social-media' },
+      { name: '小红书/微博/B站', section: '#social-media' },
+      { name: '公众号/视频号', section: '#social-media' },
+      { name: '真人互动/专项', section: '#social-media' },
+    ]
+  },
+  {
+    id: 'ai-tools',
+    name: 'AI 工具',
+    icon: 'Sparkles',
+    color: '#e6058e',
+    items: [
+      { name: '智能客服·回了么', section: '#ai-tools' },
+      { name: 'AI 视频生成', section: '#ai-tools' },
+      { name: 'AI 电话助理', section: '#ai-tools' },
+      { name: '自有AI部署', section: '#ai-tools' },
+      { name: '软件定制开发', section: '#ai-tools' },
+    ]
+  },
+  {
+    id: 'data-acquisition',
+    name: '数据获客',
+    icon: 'Database',
+    color: '#00c6ff',
+    items: [
+      { name: '全球POI数据采集', section: '#data-acquisition' },
+      { name: '智能筛选系统', section: '#data-acquisition' },
+      { name: 'B2B精准获客', section: '#data-acquisition' },
+      { name: 'CRM对接', section: '#data-acquisition' },
+    ]
+  },
+  {
+    id: 'overseas',
+    name: '出海营销',
+    icon: 'Globe',
+    color: '#ffa500',
+    items: [
+      { name: 'TikTok开户/投放', section: '#overseas' },
+      { name: 'Facebook企业户', section: '#overseas' },
+      { name: 'Google广告开户', section: '#overseas' },
+      { name: '抖音运营推广', section: '#overseas' },
+      { name: '跨境电商SEO', section: '#overseas' },
+    ]
+  },
+  {
+    id: 'digital',
+    name: '数字化建设',
+    icon: 'Code',
+    color: '#22c55e',
+    items: [
+      { name: '企业官网制作', section: '#digital' },
+      { name: '小程序开发', section: '#digital' },
+      { name: '海外独立站', section: '#overseas' },
+      { name: '跨境电商SEO', section: '#overseas' },
+    ]
+  },
+  {
+    id: 'pre-consulting',
+    name: '前置咨询',
+    icon: 'MessageCircle',
+    color: '#a855f7',
+    items: [
+      { name: '网络节点搭建', section: '#pre-consulting' },
+      { name: '海外账号注册', section: '#pre-consulting' },
+      { name: '出海前置咨询', section: '#pre-consulting' },
+    ]
+  },
+  {
+    id: 'china-sourcing',
+    name: 'China Sourcing',
+    icon: 'ShoppingBag',
+    color: '#dc2626',
+    items: [
+      { name: 'Product Sourcing', section: '#china-sourcing' },
+      { name: 'Factory Direct', section: '#china-sourcing' },
+      { name: 'Supply Chain', section: '#china-sourcing' },
+    ]
+  }
+] as const;
+
+// ============================================================
+// 共享家风格首屏 - 轮播 Banner
+// ============================================================
+export type HeroBanner = {
+  id: string;
+  title: string;
+  subtitle: string;
+  gradient: string;
+  icon: string;
+  cta: string;
+  section: string;
+};
+
+export const HERO_BANNERS: HeroBanner[] = [
+  {
+    id: 'banner-social',
+    title: '全平台社媒运营',
+    subtitle: '抖音·快手·小红书·微博·B站·公众号 — 真人互动，数据增长',
+    gradient: 'from-[#22c55e]/20 via-[#22c55e]/5 to-transparent',
+    icon: 'TrendingUp',
+    cta: '了解详情 →',
+    section: '#social-media'
+  },
+  {
+    id: 'banner-ai',
+    title: 'AI 新纪元',
+    subtitle: '智能客服·AI视频·电话助理·私有部署 — 让AI成为您的员工',
+    gradient: 'from-[#e6058e]/20 via-[#e6058e]/5 to-transparent',
+    icon: 'Sparkles',
+    cta: '探索AI工具 →',
+    section: '#ai-tools'
+  },
+  {
+    id: 'banner-data',
+    title: '全球数据获客',
+    subtitle: '200+国家 · 58行业 · 实时POI数据 — 精准客户一键触达',
+    gradient: 'from-[#00c6ff]/20 via-[#00c6ff]/5 to-transparent',
+    icon: 'Globe',
+    cta: '查看数据 →',
+    section: '#data-acquisition'
+  },
+  {
+    id: 'banner-overseas',
+    title: '出海营销一站式',
+    subtitle: 'TikTok·Facebook·Google广告开户投放 — 让商品卖向全球',
+    gradient: 'from-[#ffa500]/20 via-[#ffa500]/5 to-transparent',
+    icon: 'Rocket',
+    cta: '了解出海 →',
+    section: '#overseas'
+  }
+] as const;
+
+// ============================================================
 // 图标映射（供组件使用）
 // ============================================================
-export const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
+export const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Globe,
   ShieldCheck,
   Sparkles,
@@ -1345,5 +1499,8 @@ export const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = 
   Factory,
   Rocket,
   ShoppingBag,
-  MessageCircle
+  MessageCircle,
+  ChevronRight,
+  ChevronDown,
+  Image
 };

@@ -22,6 +22,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  ChevronRight,
   Factory,
   Rocket,
   ShoppingBag,
@@ -58,7 +59,9 @@ import {
   SOFTWARE_PRODUCTS,
   DOUYIN_SERVICES,
   CHINA_SOURCING,
-  SOCIAL_MEDIA_SERVICES
+  SOCIAL_MEDIA_SERVICES,
+  SERVICE_CATEGORY_TREE,
+  HERO_BANNERS
 } from './data';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -107,6 +110,15 @@ function App() {
   const [chatStep, setChatStep] = useState(0);
   const [chatInput, setChatInput] = useState('');
   const [collectedInfo, setCollectedInfo] = useState({ name: '', contact: '', need: '' });
+  const [currentBanner, setCurrentBanner] = useState(0);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBanner((prev) => (prev + 1) % HERO_BANNERS.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -203,6 +215,143 @@ function App() {
           )}
         </AnimatePresence>
       </nav>
+
+      {/* 共享家风格首屏 - 分类导航 + 轮播 */}
+      <section id="gongxiangjia" className="relative pt-20 pb-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-[#e6058e]/3 to-transparent pointer-events-none" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          {/* 顶栏：品牌 + 搜索 */}
+          <div className="flex items-center gap-4 mb-8">
+            <button onClick={() => scrollToSection('#hero')} className="text-sm tracking-[0.2em] uppercase font-bold text-white/80 flex-shrink-0">
+              {BRAND.englishName}
+            </button>
+            <div className="flex-1 relative max-w-md">
+              <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="搜索服务…"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white/70 text-xs placeholder:text-white/20 outline-none focus:border-[#00c6ff]/30 focus:bg-white/[0.06] transition-all"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const val = (e.target as HTMLInputElement).value.toLowerCase();
+                    const match = SERVICE_CATEGORY_TREE.find(c =>
+                      c.name.toLowerCase().includes(val) ||
+                      c.items.some(i => i.name.toLowerCase().includes(val))
+                    );
+                    if (match) scrollToSection(match.items[0].section);
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* 主体：左侧分类树 + 右侧轮播 */}
+          <div className="flex gap-6">
+            {/* 左侧分类菜单树 */}
+            <div className="hidden md:block w-56 flex-shrink-0">
+              <div className="space-y-1">
+                {SERVICE_CATEGORY_TREE.map((cat) => (
+                  <div
+                    key={cat.id}
+                    className="relative"
+                    onMouseEnter={() => setHoveredCategory(cat.id)}
+                    onMouseLeave={() => setHoveredCategory(null)}
+                  >
+                    <button
+                      onClick={() => scrollToSection(cat.items[0].section)}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs transition-all ${
+                        hoveredCategory === cat.id
+                          ? 'bg-white/[0.06] text-white'
+                          : 'text-white/50 hover:text-white/70 hover:bg-white/[0.03]'
+                      }`}
+                    >
+                      <span style={{ color: cat.color }}>{renderIcon(cat.icon, 16)}</span>
+                      <span className="font-medium">{cat.name}</span>
+                      <ChevronRight
+                        size={12}
+                        className={`ml-auto transition-transform ${hoveredCategory === cat.id ? 'rotate-90' : ''}`}
+                        style={{ color: cat.color }}
+                      />
+                    </button>
+
+                    {/* 子菜单弹出层 */}
+                    <AnimatePresence>
+                      {hoveredCategory === cat.id && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute left-full top-0 ml-2 w-48 rounded-xl border border-white/10 bg-[#0c0c1a]/95 backdrop-blur-xl p-2 shadow-2xl z-30"
+                        >
+                          {cat.items.map((item) => (
+                            <button
+                              key={item.name}
+                              onClick={() => scrollToSection(item.section)}
+                              className="w-full text-left px-3 py-2 rounded-lg text-xs text-white/50 hover:text-white hover:bg-white/[0.06] transition-all"
+                            >
+                              {item.name}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 右侧轮播区 */}
+            <div className="flex-1 min-h-0">
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: '360px' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={HERO_BANNERS[currentBanner].id}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.4 }}
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${HERO_BANNERS[currentBanner].gradient} border border-white/[0.06] p-8 md:p-12 flex flex-col justify-center cursor-pointer`}
+                    onClick={() => scrollToSection(HERO_BANNERS[currentBanner].section)}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        style={{ backgroundColor: `${['#22c55e','#e6058e','#00c6ff','#ffa500'][currentBanner]}20`, color: ['#22c55e','#e6058e','#00c6ff','#ffa500'][currentBanner] }}
+                      >
+                        {renderIcon(HERO_BANNERS[currentBanner].icon, 22)}
+                      </div>
+                      <span className="text-xs uppercase tracking-[0.15em] text-white/30">{HERO_BANNERS[currentBanner].title.split(' ')[0]}</span>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-3">{HERO_BANNERS[currentBanner].title}</h2>
+                    <p className="text-sm text-white/50 max-w-lg leading-relaxed mb-6">{HERO_BANNERS[currentBanner].subtitle}</p>
+                    <div>
+                      <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 text-white/80 text-xs font-medium hover:bg-white/15 transition-colors">
+                        {HERO_BANNERS[currentBanner].cta}
+                      </span>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* 轮播指示器 */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+                  {HERO_BANNERS.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentBanner(idx)}
+                      className={`transition-all rounded-full ${
+                        idx === currentBanner
+                          ? 'w-6 h-1.5 bg-white/60'
+                          : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
