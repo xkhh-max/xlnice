@@ -1184,6 +1184,10 @@ export const CONTACT_INFO = {
     name: 'caixukuntg',
     qr: '/qrcode/telegram-personal.webp'
   },
+  whatsapp: {
+    qr: '/qrcode/whatsapp.webp',
+    label: 'WhatsApp'
+  },
   other: {
     qr: '/qrcode/other-contact.webp',
     label: '更多渠道'
@@ -1317,7 +1321,7 @@ export const SOCIAL_LINKS = [
 // ============================================================
 // 图标映射（供组件使用）
 // ============================================================
-export const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
+export const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Globe,
   ShieldCheck,
   Sparkles,
