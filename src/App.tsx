@@ -112,6 +112,7 @@ function App() {
   const [collectedInfo, setCollectedInfo] = useState({ name: '', contact: '', need: '' });
   const [currentBanner, setCurrentBanner] = useState(0);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [activeMobileCat, setActiveMobileCat] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -137,12 +138,17 @@ function App() {
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
-      const offset = 80; // 导航栏高度 + 额外间距
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
     setMobileMenuOpen(false);
+    setActiveMobileCat(null);
+  };
+
+  const navigateTo = (section: string) => {
+    scrollToSection(section);
   };
 
   const renderIcon = (iconName: string, size: number = 24) => {
@@ -217,11 +223,11 @@ function App() {
       </nav>
 
       {/* 共享家风格首屏 - 分类导航 + 轮播 */}
-      <section id="gongxiangjia" className="relative pt-20 pb-8 overflow-hidden">
+      <section id="gongxiangjia" className="relative pt-20 pb-4 md:pb-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-[#e6058e]/3 to-transparent pointer-events-none" />
-        <div className="relative max-w-6xl mx-auto px-6">
+        <div className="relative max-w-6xl mx-auto px-4 md:px-6">
           {/* 顶栏：品牌 + 搜索 */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-3 mb-6">
             <button onClick={() => scrollToSection('#hero')} className="text-sm tracking-[0.2em] uppercase font-bold text-white/80 flex-shrink-0">
               {BRAND.englishName}
             </button>
@@ -238,16 +244,63 @@ function App() {
                       c.name.toLowerCase().includes(val) ||
                       c.items.some(i => i.name.toLowerCase().includes(val))
                     );
-                    if (match) scrollToSection(match.items[0].section);
+                    if (match) navigateTo(match.items[0].section);
                   }
                 }}
               />
             </div>
           </div>
 
+          {/* 移动端分类导航条（水平滚动） */}
+          <div className="md:hidden mb-4">
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4">
+              {SERVICE_CATEGORY_TREE.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveMobileCat(activeMobileCat === cat.id ? null : cat.id)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-all flex-shrink-0 ${
+                    activeMobileCat === cat.id
+                      ? 'bg-white/[0.08] text-white border border-white/15'
+                      : 'bg-white/[0.03] text-white/50 border border-white/[0.06] hover:text-white/70'
+                  }`}
+                >
+                  <span style={{ color: cat.color }}>{renderIcon(cat.icon, 14)}</span>
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+
+            {/* 移动端子菜单 */}
+            <AnimatePresence>
+              {activeMobileCat && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden"
+                >
+                  {SERVICE_CATEGORY_TREE.filter(c => c.id === activeMobileCat).map(cat => (
+                    <div key={cat.id} className="flex flex-wrap gap-2 pt-2 pb-1">
+                      {cat.items.map(item => (
+                        <button
+                          key={item.name}
+                          onClick={() => navigateTo(item.section)}
+                          className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-xs text-white/50 hover:text-white hover:bg-white/[0.08] transition-all"
+                        >
+                          {item.name}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {/* 主体：左侧分类树 + 右侧轮播 */}
           <div className="flex gap-6">
-            {/* 左侧分类菜单树 */}
+            {/* 左侧分类菜单树 - 仅桌面 */}
             <div className="hidden md:block w-56 flex-shrink-0">
               <div className="space-y-1">
                 {SERVICE_CATEGORY_TREE.map((cat) => (
@@ -258,7 +311,7 @@ function App() {
                     onMouseLeave={() => setHoveredCategory(null)}
                   >
                     <button
-                      onClick={() => scrollToSection(cat.items[0].section)}
+                      onClick={() => navigateTo(cat.items[0].section)}
                       className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs transition-all ${
                         hoveredCategory === cat.id
                           ? 'bg-white/[0.06] text-white'
@@ -274,7 +327,7 @@ function App() {
                       />
                     </button>
 
-                    {/* 子菜单弹出层 */}
+                    {/* 桌面端子菜单弹出层 */}
                     <AnimatePresence>
                       {hoveredCategory === cat.id && (
                         <motion.div
@@ -287,7 +340,7 @@ function App() {
                           {cat.items.map((item) => (
                             <button
                               key={item.name}
-                              onClick={() => scrollToSection(item.section)}
+                              onClick={() => navigateTo(item.section)}
                               className="w-full text-left px-3 py-2 rounded-lg text-xs text-white/50 hover:text-white hover:bg-white/[0.06] transition-all"
                             >
                               {item.name}
@@ -303,7 +356,7 @@ function App() {
 
             {/* 右侧轮播区 */}
             <div className="flex-1 min-h-0">
-              <div className="relative rounded-2xl overflow-hidden" style={{ height: '360px' }}>
+              <div className="relative rounded-xl md:rounded-2xl overflow-hidden" style={{ height: '220px' }}>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={HERO_BANNERS[currentBanner].id}
@@ -311,22 +364,23 @@ function App() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -40 }}
                     transition={{ duration: 0.4 }}
-                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${HERO_BANNERS[currentBanner].gradient} border border-white/[0.06] p-8 md:p-12 flex flex-col justify-center cursor-pointer`}
-                    onClick={() => scrollToSection(HERO_BANNERS[currentBanner].section)}
+                    className={`absolute inset-0 rounded-xl md:rounded-2xl bg-gradient-to-br ${HERO_BANNERS[currentBanner].gradient} border border-white/[0.06] p-6 md:p-12 flex flex-col justify-center cursor-pointer`}
+                    onClick={() => navigateTo(HERO_BANNERS[currentBanner].section)}
                   >
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-2 md:mb-4">
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        className="w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center"
                         style={{ backgroundColor: `${['#22c55e','#e6058e','#00c6ff','#ffa500'][currentBanner]}20`, color: ['#22c55e','#e6058e','#00c6ff','#ffa500'][currentBanner] }}
                       >
-                        {renderIcon(HERO_BANNERS[currentBanner].icon, 22)}
+                        {renderIcon(HERO_BANNERS[currentBanner].icon, 18)}
                       </div>
-                      <span className="text-xs uppercase tracking-[0.15em] text-white/30">{HERO_BANNERS[currentBanner].title.split(' ')[0]}</span>
+                      <span className="text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/30">{HERO_BANNERS[currentBanner].title.split(' ')[0]}</span>
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-white/90 mb-3">{HERO_BANNERS[currentBanner].title}</h2>
-                    <p className="text-sm text-white/50 max-w-lg leading-relaxed mb-6">{HERO_BANNERS[currentBanner].subtitle}</p>
+                    <h2 className="text-lg md:text-3xl font-bold text-white/90 mb-1 md:mb-3">{HERO_BANNERS[currentBanner].title}</h2>
+                    <p className="text-xs md:text-sm text-white/50 max-w-lg leading-relaxed mb-4 md:mb-6 md:block hidden">{HERO_BANNERS[currentBanner].subtitle}</p>
+                    <p className="text-xs md:text-sm text-white/50 max-w-lg leading-relaxed mb-4 md:mb-6 md:hidden">{HERO_BANNERS[currentBanner].subtitle.slice(0, 30)}…</p>
                     <div>
-                      <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 text-white/80 text-xs font-medium hover:bg-white/15 transition-colors">
+                      <span className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white/10 text-white/80 text-[10px] md:text-xs font-medium hover:bg-white/15 transition-colors">
                         {HERO_BANNERS[currentBanner].cta}
                       </span>
                     </div>
@@ -334,14 +388,14 @@ function App() {
                 </AnimatePresence>
 
                 {/* 轮播指示器 */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
                   {HERO_BANNERS.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentBanner(idx)}
                       className={`transition-all rounded-full ${
                         idx === currentBanner
-                          ? 'w-6 h-1.5 bg-white/60'
+                          ? 'w-5 md:w-6 h-1.5 bg-white/60'
                           : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
                       }`}
                     />
