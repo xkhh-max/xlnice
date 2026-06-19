@@ -51,8 +51,6 @@ import {
   SOCIAL_LINKS,
   ALL_SERVICES,
   HERO_CONFIG,
-  HERO_CATEGORIES,
-  HOT_PRODUCTS,
   TARGET_CUSTOMERS,
   PLATFORM_SERVICES,
   CONTACT_INFO,
@@ -109,7 +107,6 @@ function App() {
   const [chatStep, setChatStep] = useState(0);
   const [chatInput, setChatInput] = useState('');
   const [collectedInfo, setCollectedInfo] = useState({ name: '', contact: '', need: '' });
-  const [consultProduct, setConsultProduct] = useState<any>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -207,201 +204,125 @@ function App() {
         </AnimatePresence>
       </nav>
 
-      {/* Hero Section — gongxiangjia 风格 */}
-      <section id="hero" className="relative min-h-screen pt-20 pb-8 overflow-hidden">
-        {/* Background layers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/8 via-[#e6058e]/4 to-[#03030a] pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[#00c6ff]/8 rounded-full blur-[200px] -z-10 pointer-events-none" />
-        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#e6058e]/6 rounded-full blur-[180px] -z-10 pointer-events-none" />
-        <div className="absolute inset-0 grid-bg opacity-30" />
+      {/* Hero Section */}
+      <section id="hero" className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#00c6ff]/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#e6058e]/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-12 pb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="max-w-4xl space-y-8"
+        >
+          {/* 品牌名 */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-xs uppercase tracking-[0.4em] text-white/40"
+          >
+            {BRAND.name} · {BRAND.subtitle}
+          </motion.p>
 
-          {/* Top section: brand + tagline */}
+          {/* 主标语 */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-2xl md:text-4xl font-bold text-white/90 tracking-tight"
+          >
+            {HERO_CONFIG.headline}
+          </motion.h1>
+
+          {/* 六大关键词大字 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-10"
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4 md:gap-6"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              className="text-xs uppercase tracking-[0.3em] text-white/30 mb-3"
-            >
-              {BRAND.name} · {BRAND.subtitle}
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
-            >
-              <span className="text-white/90">{HERO_CONFIG.headline.split('·')[0]}</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00c6ff] via-[#e6058e] to-[#ffa500]">
-                ·{HERO_CONFIG.headline.split('·')[1]}
-              </span>
-            </motion.h1>
-          </motion.div>
-
-          {/* Search bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="max-w-xl mx-auto mb-12"
-          >
-            <div className="relative flex items-center">
-              <Search size={18} className="absolute left-5 text-white/30 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="搜索您需要的服务… 例：POI数据、抖音点赞、SEO优化"
-                className="w-full px-12 py-4 rounded-2xl bg-white/[0.04] border border-white/10 text-white/80 text-sm placeholder:text-white/25 outline-none focus:border-[#00c6ff]/40 focus:bg-white/[0.06] transition-all"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    const val = (e.target as HTMLInputElement).value.toLowerCase()
-                    const match = HERO_CATEGORIES.find(c =>
-                      c.name.includes(val) || c.tags.some(t => t.includes(val))
-                    )
-                    if (match) scrollToSection(match.section)
-                  }
+            {HERO_CONFIG.keywords.map((item, idx) => (
+              <motion.span
+                key={item.text}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: [1, 0.5, 1],
+                  scale: [1, 1.02, 1],
                 }}
-              />
-              <Search size={16} className="absolute right-5 text-white/20" />
-            </div>
-          </motion.div>
-
-          {/* Category grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
-            className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-14"
-          >
-            {HERO_CATEGORIES.map((cat, idx) => (
-              <motion.button
-                key={cat.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + idx * 0.07 }}
-                onClick={() => scrollToSection(cat.section)}
-                className="group p-4 md:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/15 transition-all text-center flex flex-col items-center gap-2"
+                transition={{
+                  delay: 0.5 + idx * 0.1,
+                  duration: 0.4,
+                }}
+                style={{ color: item.color }}
+                className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight"
               >
-                <div
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110"
-                  style={{ backgroundColor: `${cat.color}15`, color: cat.color }}
-                >
-                  {renderIcon(cat.icon, 22)}
-                </div>
-                <span className="text-xs md:text-sm font-bold text-white/70 group-hover:text-white transition-colors">{cat.name}</span>
-                <span className="text-[10px] text-white/30 leading-tight hidden md:block">{cat.desc}</span>
-              </motion.button>
+                {item.text}
+              </motion.span>
             ))}
           </motion.div>
 
-          {/* Hot products section */}
-          <motion.div
+          {/* 副关键词 */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
+            className="text-base md:text-lg text-white/50"
           >
-            <div className="flex items-center gap-2 mb-5">
-              <TrendingUp size={16} className="text-[#e6058e]" />
-              <span className="text-xs uppercase tracking-[0.15em] text-white/40 font-medium">热门推荐</span>
-              <div className="flex-1 h-px bg-white/[0.06] ml-3" />
-            </div>
+            {HERO_CONFIG.subKeywords}
+          </motion.p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-              {HOT_PRODUCTS.map((prod, idx) => (
-                <motion.div
-                  key={prod.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.75 + idx * 0.08 }}
-                  className="group relative p-4 md:p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-all overflow-hidden"
-                >
-                  {/* Badge */}
-                  <span
-                    className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase"
-                    style={{ backgroundColor: `${prod.badgeColor}20`, color: prod.badgeColor }}
-                  >
-                    {prod.badge}
-                  </span>
-
-                  {/* Category tag */}
-                  <span
-                    className="inline-block px-2 py-0.5 rounded text-[9px] font-medium mb-2"
-                    style={{ backgroundColor: `${prod.categoryColor}15`, color: prod.categoryColor }}
-                  >
-                    {prod.category}
-                  </span>
-
-                  <h3 className="text-sm md:text-base font-bold text-white/80 mb-1">{prod.name}</h3>
-                  <p className="text-[10px] md:text-xs text-white/40 mb-3 leading-relaxed">{prod.description}</p>
-
-                  {/* Price */}
-                  <div className="flex items-baseline gap-0.5 mb-3">
-                    <span className="text-lg md:text-xl font-black text-white">{prod.price}</span>
-                    <span className="text-[10px] text-white/40">{prod.unit}</span>
-                  </div>
-
-                  {/* Order button */}
-                  <button
-                    onClick={() => {
-                      setConsultProduct(prod)
-                      setShowAIChat(true)
-                    }}
-                    className="w-full py-2 rounded-xl text-xs font-bold tracking-wider transition-all bg-white/5 border border-white/10 text-white/60 hover:bg-[#e6058e] hover:text-white hover:border-[#e6058e] group-hover:border-[#e6058e]/30"
-                  >
-                    立即下单 →
-                  </button>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
+          {/* 问题引导语 */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-4 mt-10"
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="text-base md:text-lg text-white/60 max-w-xl mx-auto leading-relaxed"
+          >
+            {HERO_CONFIG.tagline}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4 pt-4"
           >
             <div className="flex flex-col items-center gap-1">
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00c6ff] to-[#e6058e] text-white font-bold text-sm tracking-[0.08em] hover:opacity-90 transition-opacity shadow-lg shadow-[#e6058e]/20"
+                className="px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-[0.1em] hover:bg-white/90 transition-colors"
               >
                 立即咨询
               </button>
-              <span className="text-[10px] text-white/25 tracking-wider">扫码添加微信，直接沟通</span>
+              <span className="text-[10px] text-white/30 tracking-wider">扫码添加微信，直接沟通</span>
             </div>
             <div className="flex flex-col items-center gap-1">
               <button
                 onClick={() => setShowContactModal(true)}
-                className="px-8 py-3.5 rounded-full bg-white/5 text-white/70 font-bold text-sm tracking-[0.08em] border border-white/15 hover:bg-white/10 hover:border-white/25 transition-all"
+                className="px-8 py-4 rounded-full bg-white/10 text-white/80 font-bold text-sm tracking-[0.1em] border border-white/20 hover:bg-white/20 transition-colors"
               >
                 不方便直接联系？
               </button>
-              <span className="text-[10px] text-white/25 tracking-wider">匿名留言，保护隐私</span>
+              <span className="text-[10px] text-white/30 tracking-wider">这里没有人知道你我是谁，只需要留需求即可</span>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3 }}
-          className="flex justify-center pb-4"
+          transition={{ delay: 1.2 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <button
             onClick={() => scrollToSection('#about')}
-            className="flex flex-col items-center gap-1 text-white/20 hover:text-white/40 transition-colors"
+            className="flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors"
           >
-            <span className="text-[9px] uppercase tracking-[0.25em]">Scroll</span>
-            <ChevronDown size={14} className="animate-bounce" />
+            <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+            <ChevronDown size={16} className="animate-bounce" />
           </button>
         </motion.div>
       </section>
@@ -1418,18 +1339,18 @@ function App() {
                 </a>
               </motion.div>
 
-              {/* WhatsApp */}
+              {/* 其他联系方式 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.25 }}
-                className="p-5 rounded-2xl border border-white/10 bg-white/[0.02] text-center hover:border-[#25D366]/30 transition-all group"
+                className="p-5 rounded-2xl border border-white/10 bg-white/[0.02] text-center hover:border-[#22c55e]/30 transition-all group"
               >
                 <div className="w-36 h-36 mx-auto mb-3 rounded-xl overflow-hidden bg-white/[0.03] border border-white/5 group-hover:border-white/20 transition-colors">
-                  <img src={CONTACT_INFO.whatsapp.qr} alt="WhatsApp二维码" className="w-full h-full object-contain" loading="lazy" />
+                  <img src={CONTACT_INFO.other.qr} alt={CONTACT_INFO.other.label} className="w-full h-full object-contain" loading="lazy" />
                 </div>
-                <h3 className="font-bold text-white text-sm mb-0.5">{CONTACT_INFO.whatsapp.label}</h3>
+                <h3 className="font-bold text-white text-sm mb-0.5">{CONTACT_INFO.other.label}</h3>
                 <p className="text-xs text-white/40">扫码添加</p>
               </motion.div>
 
@@ -1684,7 +1605,7 @@ function App() {
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#e6058e] to-[#00c6ff] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 mt-0.5">AI</div>
                   <div className="bg-white/[0.06] rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
                     <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line">
-                      {chatStep === 0 ? (consultProduct ? `你好！👋 您对「${consultProduct.name}」感兴趣，我来帮您介绍一下：${consultProduct.description}。需要立即下单还是先了解详情？` : `您好！👋 欢迎来到XLNICE，我是您的智能咨询助手。请问有什么可以帮您？`) :
+                      {chatStep === 0 ? '您好！👋 欢迎来到XLNICE，我是您的智能咨询助手。请问有什么可以帮您？' :
                        chatStep === 1 ? '好的！我们提供以下服务：\n\n🚀 社媒运营 — 抖音/快手/小红书等全平台互动增长\n🤖 AI工具 — 智能客服/视频生成/模型定制\n🌐 出海营销 — TikTok/Facebook/Google广告开户投放\n📊 数据获客 — 全球POI数据采集\n🛒 数字化建设 — 网站/小程序/独立站搭建\n🔧 前置咨询 — 节点搭建/账号注册/出海规划\n\n您对哪个方向感兴趣？' :
                        chatStep === 2 ? '太好了！能简单描述一下您的需求吗？比如您是做什么行业的，想解决什么问题？' :
                        chatStep === 3 ? '明白了！为了给您提供更精准的方案，请留下您的称呼 📝' :

@@ -72,116 +72,6 @@ export const HERO_CONFIG = {
 } as const;
 
 // ============================================================
-// 首屏分类导航
-// ============================================================
-export const HERO_CATEGORIES = [
-  {
-    id: 'social-media',
-    name: '社媒运营',
-    desc: '全平台互动增长',
-    color: '#22c55e',
-    icon: 'TrendingUp',
-    section: '#social-media',
-    tags: ['抖音', '快手', '小红书', '微博', 'B站', '社媒', '运营']
-  },
-  {
-    id: 'ai-tools',
-    name: 'AI 工具',
-    desc: '智能客服·视频生成',
-    color: '#e6058e',
-    icon: 'Sparkles',
-    section: '#ai-tools',
-    tags: ['AI', '人工智能', '客服', '视频', '智能']
-  },
-  {
-    id: 'data-acquisition',
-    name: '数据获客',
-    desc: '全球POI数据采集',
-    color: '#00c6ff',
-    icon: 'Database',
-    section: '#data-acquisition',
-    tags: ['数据', '获客', 'POI', '采集', '客户']
-  },
-  {
-    id: 'overseas',
-    name: '出海服务',
-    desc: 'TikTok·Facebook·Google',
-    color: '#ffa500',
-    icon: 'Globe',
-    section: '#overseas',
-    tags: ['出海', 'TikTok', 'Facebook', 'Google', '广告']
-  },
-  {
-    id: 'digital',
-    name: '网站建设',
-    desc: '官网·小程序·独立站',
-    color: '#22c55e',
-    icon: 'Code',
-    section: '#digital',
-    tags: ['网站', '小程序', '搭建', '开发']
-  },
-  {
-    id: 'pre-consulting',
-    name: '前置咨询',
-    desc: '出海方案·节点搭建',
-    color: '#a855f7',
-    icon: 'MessageCircle',
-    section: '#pre-consulting',
-    tags: ['咨询', '节点', '账号', '出海']
-  }
-] as const;
-
-// ============================================================
-// 热门推荐产品
-// ============================================================
-export const HOT_PRODUCTS = [
-  {
-    id: 'smart-reply',
-    name: '回了么·智能客服',
-    description: '自动回复客户消息，多平台支持',
-    price: '¥199',
-    unit: '/月',
-    badge: 'HOT',
-    badgeColor: '#e6058e',
-    category: 'AI工具',
-    categoryColor: '#e6058e'
-  },
-  {
-    id: 'global-data',
-    name: '全球POI数据采集',
-    description: '58行业·200+国家·实时更新',
-    price: '¥299',
-    unit: '/份',
-    badge: '爆款',
-    badgeColor: '#ffa500',
-    category: '数据获客',
-    categoryColor: '#00c6ff'
-  },
-  {
-    id: 'tiktok-ads',
-    name: 'TikTok广告开户',
-    description: '官方渠道·快速下号·代投放',
-    price: '¥0',
-    unit: '开户费',
-    badge: 'NEW',
-    badgeColor: '#00c6ff',
-    category: '出海服务',
-    categoryColor: '#ffa500'
-  },
-  {
-    id: 'website-build',
-    name: '企业官网搭建',
-    description: '响应式设计·SEO友好·双语支持',
-    price: '¥999',
-    unit: '/站',
-    badge: '推荐',
-    badgeColor: '#22c55e',
-    category: '网站建设',
-    categoryColor: '#22c55e'
-  }
-] as const;
-
-// ============================================================
 // 我的项目展示 - 自研网站
 // ============================================================
 export const PROJECTS = [
@@ -1294,10 +1184,6 @@ export const CONTACT_INFO = {
     name: 'caixukuntg',
     qr: '/qrcode/telegram-personal.webp'
   },
-  whatsapp: {
-    qr: '/qrcode/whatsapp.webp',
-    label: 'WhatsApp'
-  },
   other: {
     qr: '/qrcode/other-contact.webp',
     label: '更多渠道'
@@ -1431,7 +1317,7 @@ export const SOCIAL_LINKS = [
 // ============================================================
 // 图标映射（供组件使用）
 // ============================================================
-export const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+export const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
   Globe,
   ShieldCheck,
   Sparkles,
